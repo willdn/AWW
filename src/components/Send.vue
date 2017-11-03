@@ -19,7 +19,7 @@
         </div>
         <div class="field">
           <label>Private Key</label>
-          <input v-model="privateKey" type="text" placeholder="Enter private key (WIF)">
+          <input v-model="passphrase" type="text" placeholder="Enter private key (WIF)">
         </div>
         <button class="ui button green"
           :class="{ 'disabled': sending }"
@@ -40,6 +40,9 @@
 
 <script>
 // import { addNotification } from '../api/notification'
+import { getNetHash } from '../api'
+import ark from 'arkjs'
+import axios from 'axios'
 
 const defaultTransaction = {
   to: null,
@@ -51,7 +54,7 @@ export default {
   data () {
     return {
       sending: false,
-      privateKey: null,
+      passphrase: null,
       transaction: defaultTransaction
     }
   },
@@ -69,6 +72,34 @@ export default {
   },
   methods: {
     send () {
+      let amount = this.transaction.amount * Math.pow(10, 8)
+      let transaction = ark.transaction.createTransaction(
+        this.transaction.to,
+        amount,
+        null,
+        this.passphrase,
+        ''
+      )
+      console.log(transaction)
+      getNetHash()
+        .then((nethash) => {
+          const data = JSON.stringify({ transactions: [transaction] })
+          axios.post('http://167.114.29.52:4002/peer/transactions', data, {
+            headers: {
+              'Content-Type': 'application/json',
+              // 'os': 'linux3.2.0-4-amd64',
+              'version': '0.3.0',
+              'port': 1,
+              'nethash': nethash
+            }
+          })
+          .then(function (response) {
+            console.log(response)
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+        })
     },
     validateForm () {
     },

@@ -79,7 +79,7 @@
 
 <script>
 import { clipboardNotification } from '../api/notification'
-import moment from 'moment'
+// import moment from 'moment'
 import * as utils from '../api/utils'
 
 export default {
@@ -98,7 +98,7 @@ export default {
       return this.$store.getters.wallet.address
     },
     date () {
-      return "03/11/2015"
+      return '03/11/2015'
     }
   },
   methods: {

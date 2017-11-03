@@ -23,3 +23,17 @@ export const getBlocksHeight = () => {
     if (err) console.log(err)
   })
 }
+
+/**
+ * Get network hash
+ * @return {string} Network hash
+ */
+export const getNetHash = () => {
+  return axios.get(`${getEndpoint()}/api/blocks/getNetHash`)
+  .then((res) => {
+    return res.data.nethash
+  })
+  .catch((err) => {
+    if (err) console.log(err)
+  })
+}
