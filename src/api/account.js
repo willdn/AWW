@@ -56,12 +56,27 @@ export const getAccount = (address) => {
 /**
  * Get balance from address
  * @param - Address to get balance
- * @return {Object} Balance
+ * @return {number} Balance
  */
 export const getBalance = (address) => {
   return axios.get(`${getEndpoint()}/api/accounts/getBalance?address=${address}`)
   .then((res) => {
     return res.data.balance / 100000000
+  })
+  .catch((err) => {
+    if (err) console.log(err)
+  })
+}
+
+/**
+ * Get transaction list
+ * @param - Address to get transactions
+ * @return {Array} Transactions
+ */
+export const getTransactions = (address) => {
+  return axios.get(`${getEndpoint()}/api/transactions/get?address=${address}`)
+  .then((res) => {
+    return res.data
   })
   .catch((err) => {
     if (err) console.log(err)

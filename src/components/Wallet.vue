@@ -42,7 +42,7 @@
       </div>
       <send v-if="sendFormVisible"></send>
       <!-- Transaction header -->
-      <div class="ui header left aligned">
+      <div v-if="transactions" class="ui header left aligned">
         <i class="ui icon exchange"></i>
         <div class="content">
           Transactions
@@ -65,7 +65,7 @@
 
 <script>
 import { clipboardNotification } from '../api/notification'
-import { getBalance } from '../api/account'
+import { getBalance, getTransactions } from '../api/account'
 // import Transaction from './Transaction'
 import Send from './Send'
 import QRCode from 'qrcode'
@@ -109,8 +109,13 @@ export default {
     getBalance () {
       getBalance(this.wallet.address)
         .then((response) => {
-          console.log(response)
           this.balance = response
+        })
+    },
+    getTransactions () {
+      getTransactions(this.wallet.address)
+        .then((response) => {
+          this.transactions = response
         })
     },
     refresh () {
@@ -126,12 +131,10 @@ export default {
       return null
     }
     this.getBalance()
+    // this.getTransactions()
     setInterval(() => {
       this.getBalance()
-      /*
-      this.getTransactions()
-      this.getBalance()
-      */
+      // this.getTransactions()
     }, 15000)
     this.$nextTick(() => {
       QRCode.toDataURL(this.$store.getters.wallet.address, (err, url) => {

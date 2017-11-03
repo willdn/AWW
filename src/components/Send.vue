@@ -11,20 +11,11 @@
       <form class="ui form">
         <div class="field">
           <label>Address</label>
-          <input v-model="transaction.to" type="text" :placeholder="`Send ${transaction.amount} ${transaction.asset} to `">
+          <input v-model="transaction.to" type="text" :placeholder="`Send ${transaction.amount} to `">
         </div>
-        <div class="two fields fluid">
-          <div class="twelve wide field">
-            <label>Amount</label>
-            <input v-model="transaction.amount" type="number" min="0">
-          </div>
-          <div class="four wide field">
-            <label>&nbsp;</label>
-            <select v-model="transaction.asset" class="ui simple dropdown item">
-              <option value="GAS">GAS</option>
-              <option value="NEO">NEO</option>
-            </select>
-          </div>
+        <div class="field">
+          <label>Amount</label>
+          <input v-model="transaction.amount" type="number" min="0">
         </div>
         <div class="field">
           <label>Private Key</label>
@@ -50,13 +41,18 @@
 <script>
 // import { addNotification } from '../api/notification'
 
+const defaultTransaction = {
+  to: null,
+  amount: 0
+}
+
 export default {
   name: 'send',
   data () {
     return {
       sending: false,
       privateKey: null,
-      transaction: null
+      transaction: defaultTransaction
     }
   },
   computed: {
