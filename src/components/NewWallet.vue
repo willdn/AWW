@@ -24,23 +24,13 @@
                 <div class="ui header">Address</div>
                 <img class="ui centered image" width="148" :src="QRAddress" />
                 <div>{{ wallet.address }}</div>
-                <a
-                  v-clipboard="wallet.address"
-                  @success="copySuccess()">
-                  <i class="icon copy"></i>
-                </a>
             </div>
         </div>
         <div class="column">
               <div class="content">
-                <div class="ui header">Private key (WIF)</div>
+                <div class="ui header">Passphrase</div>
                 <img class="ui centered image" width="148" :src="QRPassphrase" />
                 <div>{{ wallet.passphrase }}</div>
-                <a
-                  v-clipboard="wallet.passphrase"
-                  @success="copySuccess()">
-                  <i class="icon copy"></i>
-                </a>
             </div>
         </div>
       </div>
@@ -53,12 +43,12 @@
           </div>
           <p>
             <i class="icon chevron right"></i>
-            Be sure to store the private keys in a secure place, 
+            Be sure to store the passphrase in a secure place, 
             if you lose it your funds <b>cannot be recovered</b>.
           </p>
           <p>
             <i class="icon chevron right"></i>
-            Do not share your private key with anyone, 
+            Do not share your passphrase with anyone, 
             your funds <b>will be stolen</b>.
           </p>
         </div>
@@ -75,7 +65,7 @@
             </div>
           </div>
           <div class="two column row">
-            <div class="column six wide"><div class="ui small header">Private Key (WIF)</div></div>
+            <div class="column six wide"><div class="ui small header">Passphrase</div></div>
             <div class="column ten wide">
               <a
                 v-clipboard="wallet.passphrase"

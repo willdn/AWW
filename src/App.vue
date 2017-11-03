@@ -44,7 +44,15 @@ export default {
 </script>
 
 <style>
-  body {
-    background-color: rgba(218, 218, 218, 0.50);
-  }
+body {
+  background-color: rgba(218, 218, 218, 0.50);
+}
+.fa-icon {
+  width: auto;
+  height: 1em; /* or any other relative font sizes */
+
+  /* You would have to include the following two lines to make this work in Safari */
+  max-width: 100%;
+  max-height: 100%;
+}
 </style>

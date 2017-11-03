@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import app from './app'
+import wallet from './wallet'
 
 Vue.use(Vuex)
 
@@ -8,7 +9,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    app
+    app,
+    wallet
   }
   // strict: debug
 })

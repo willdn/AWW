@@ -14,3 +14,13 @@ export const createWallet = () => {
     address: address
   }
 }
+
+/**
+ * Get address from passphrase
+ * @param {string} - Passphrase
+ * @return {string} Account address
+ */
+export const getAddressFromPass = (passphrase) => {
+  const keys = arkjs.crypto.getKeys(passphrase)
+  return arkjs.crypto.getAddress(keys.publicKey)
+}
