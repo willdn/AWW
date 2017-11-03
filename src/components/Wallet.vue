@@ -48,32 +48,30 @@
           Transactions
         </div>
       </div>
-      <!--
       <div
         class="ui cards"
         v-for="transaction in transactions"
-        :key="transaction.txid">
+        :key="transaction.id">
         <transaction :tx="transaction"></transaction>
       </div>
       <i v-if="refreshing" class="ui icon refresh loading"></i>
       <div v-if="transactions && transactions.length === 0" class="ui segment center aligned">
         No transactions
       </div>
-      -->
   </div>
 </template>
 
 <script>
 import { clipboardNotification } from '../api/notification'
 import { getBalance, getTransactions } from '../api/account'
-// import Transaction from './Transaction'
+import Transaction from './Transaction'
 import Send from './Send'
 import QRCode from 'qrcode'
 
 export default {
   name: 'wallet',
   components: {
-    // Transaction,
+    Transaction,
     Send
   },
   data () {
@@ -98,7 +96,7 @@ export default {
   },
   watch: {
     networkType (val) {
-      // this.getTransactions()
+      this.getTransactions()
       this.getBalance()
     }
   },
@@ -119,7 +117,6 @@ export default {
         })
     },
     refresh () {
-
     },
     copySuccess () {
       clipboardNotification()
@@ -131,10 +128,10 @@ export default {
       return null
     }
     this.getBalance()
-    // this.getTransactions()
+    this.getTransactions()
     setInterval(() => {
       this.getBalance()
-      // this.getTransactions()
+      this.getTransactions()
     }, 15000)
     this.$nextTick(() => {
       QRCode.toDataURL(this.$store.getters.wallet.address, (err, url) => {
