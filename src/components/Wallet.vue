@@ -1,7 +1,7 @@
 <template>
   <div class="ui container center aligned">
 
-      <div v-if="wallet && balance" class="ui segment center aligned">
+      <div v-if="wallet" class="ui segment center aligned">
         <div class="ui equal width stackable grid">
           <div class="ui column center aligned">
             <img class="ui centered image" :src="QRAddress" />
@@ -30,23 +30,11 @@
                   Refresh
                 </div>
               </div>
-              <div class="ui column">
-                <div class="ui button green compact basic"
-                  @click.prevent="claim()">
-                  <i class="ui icon announcement"></i>
-                  Claim GAS
-                </div>
-              </div>
             </div>
-            <div class="ui equal width grid center aligned">
+            <div v-if="balance" class="ui equal width grid center aligned">
               <div class="ui column">
-                <div class="ui header" v-if="!refreshing">0</div>
-                <i v-if="refreshing" class="ui icon refresh loading"></i>
-                NEO
-              </div>
-              <div class="ui column">
-                <div class="ui header">0</div>
-                GAS
+                {{ balance.toLocaleString() }}
+                Ark
               </div>
             </div>
           </div>
@@ -77,6 +65,7 @@
 
 <script>
 import { clipboardNotification } from '../api/notification'
+import { getBalance } from '../api/account'
 // import Transaction from './Transaction'
 import Send from './Send'
 import QRCode from 'qrcode'
@@ -109,14 +98,20 @@ export default {
   },
   watch: {
     networkType (val) {
-      this.getTransactions()
+      // this.getTransactions()
       this.getBalance()
-      this.getClaimAmounts()
     }
   },
   methods: {
     toggleSendForm () {
       this.$store.dispatch('toggleSendForm')
+    },
+    getBalance () {
+      getBalance(this.wallet.address)
+        .then((response) => {
+          console.log(response)
+          this.balance = response
+        })
     },
     refresh () {
 
@@ -130,10 +125,13 @@ export default {
       this.$router.push({ name: 'OpenWallet' })
       return null
     }
+    this.getBalance()
     setInterval(() => {
+      this.getBalance()
+      /*
       this.getTransactions()
       this.getBalance()
-      this.getClaimAmounts()
+      */
     }, 15000)
     this.$nextTick(() => {
       QRCode.toDataURL(this.$store.getters.wallet.address, (err, url) => {
