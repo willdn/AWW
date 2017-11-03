@@ -76,7 +76,7 @@ export const getBalance = (address) => {
 export const getTransactions = (address) => {
   return axios.get(`${getEndpoint()}/api/transactions?recipientId=${address}&senderId=${address}`)
   .then((res) => {
-    return res.data.transactions
+    return res.data.transactions.reverse()
   })
   .catch((err) => {
     if (err) console.log(err)

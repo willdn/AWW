@@ -23,7 +23,9 @@
           {{ truncateTxId(tx.recipientId) }}
         </div>
         <!-- Amount -->
-        <div class="ui column right aligned">
+        <div class="ui column right aligned"
+             :class="{ 'deposit-bg' : txWay === 'deposit',
+                       'withdrawal-bg' : txWay === 'withdrawal' }">
           {{ (tx.amount / 100000000).toLocaleString() }}
         </div>
       </div>
@@ -99,6 +101,10 @@ export default {
     },
     date () {
       return '03/11/2015'
+    },
+    txWay () {
+      if (this.tx.senderId === this.address) return 'withdrawal'
+      if (this.tx.recipientId === this.address) return 'deposit'
     }
   },
   methods: {
