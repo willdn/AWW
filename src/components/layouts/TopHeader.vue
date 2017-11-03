@@ -1,7 +1,7 @@
 <template>
   <div class="ui menu">
       <router-link :to="{ name: 'Main'}" class="header item">
-        Ark
+        Ark Web Wallet
       </router-link>
       
       <div  class="right menu">
