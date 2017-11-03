@@ -26,9 +26,11 @@
           @click.prevent="send()">
           <i v-if="!sending" class="ui icon send outline"></i>
           <i v-if="sending" class="ui icon spinner loading"></i>
-          Send
+          <span v-if="!sending">Send</span>
+          <span v-if="sending">Sending</span>
         </button>
         <button class="ui button basic"
+          v-if="!sending"
           @click.prevent="closeSendForm()">
           <i class="ui icon cancel"></i>
           Close
@@ -39,7 +41,7 @@
 </template>
 
 <script>
-// import { addNotification } from '../api/notification'
+import { addNotification } from '../api/notification'
 import { getNetHash } from '../api'
 import ark from 'arkjs'
 import axios from 'axios'
@@ -72,6 +74,7 @@ export default {
   },
   methods: {
     send () {
+      this.sending = true
       let amount = this.transaction.amount * Math.pow(10, 8)
       let transaction = ark.transaction.createTransaction(
         this.transaction.to,
@@ -93,11 +96,20 @@ export default {
               'nethash': nethash
             }
           })
-          .then(function (response) {
-            console.log(response)
+          .then((response) => {
+            // this.closeSendForm()
+            addNotification({
+              message: `${this.transaction.amount} sent`,
+              color: 'green'
+            })
+            this.sending = false
           })
-          .catch(function (error) {
-            console.log(error)
+          .catch((error) => {
+            addNotification({
+              message: error,
+              color: 'red'
+            })
+            this.sending = false
           })
         })
     },
