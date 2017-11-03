@@ -8,7 +8,7 @@
         <!-- Date -->
         <div class="ui column left aligned">
           <i class="icon calendar"></i>
-          03-11-2017
+          {{ date }}
         </div>
         <!-- From -->
         <div class="ui column left aligned"
@@ -30,17 +30,56 @@
     </div>
     <!-- Tx details -->
     <div v-if="tx.id === selectedTx" class="ui content">
-
+      <div v-if="tx.vendorField" class="ui segment basic center aligned tx-message">
+        {{ tx.vendorField }}
+      </div>
+      <div class="ui equal width grid">
+        <div class="ui column">
+          <div class="ui small header">From</div>
+          <div class="text" :class="{ 'is-address': tx.senderId === address }">
+            {{ tx.senderId }}
+          </div>
+        </div>
+        <div class="ui column middle aligned">
+          <i class="icon arrow right"></i>
+        </div>
+        <div class="ui column">
+          <div class="ui small header">To</div>
+          <div class="text" :class="{ 'is-address': tx.recipientId === address }">
+            {{ tx.recipientId }}
+          </div>
+        </div>
+      </div>
     </div>
     <!-- Extra details -->
     <div v-if="tx.id === selectedTx" class="content">
-
+      <div class="ui equal width grid">
+        <!-- Tx hash -->
+        <div class="ui column left aligned">
+          <i class="icon hashtag"></i>
+          {{ truncateTxId(tx.id) }}
+          <a
+            v-clipboard="tx.id"
+            @success="copySuccess()">
+            <i class="icon copy"></i>
+          </a>
+        </div>
+        <div class="ui column center aligned">
+          <i class="icon money"></i>
+          {{ (tx.fee / 100000000).toLocaleString() }}
+        </div>
+        <div class="ui column right aligned">
+          <i class="icon cube"></i>
+          {{ tx.confirmations.toLocaleString() }}
+        </div>
+      </div>
     </div>
   </a>
 </template>
 
 <script>
-// import axios from 'axios'
+import { clipboardNotification } from '../api/notification'
+import moment from 'moment'
 import * as utils from '../api/utils'
 
 export default {
@@ -57,6 +96,9 @@ export default {
     },
     address () {
       return this.$store.getters.wallet.address
+    },
+    date () {
+      return "03/11/2015"
     }
   },
   methods: {
@@ -73,6 +115,9 @@ export default {
     },
     getTransactionDetails () {
 
+    },
+    copySuccess () {
+      clipboardNotification()
     }
   },
   mounted () {
@@ -90,6 +135,9 @@ export default {
 .is-address {
   font-style: italic;
   font-weight: bold;
+}
+.tx-message {
+  font-style: italic;
 }
 .withdrawal-bg {
   color: rgba(219, 40, 40, 1);
