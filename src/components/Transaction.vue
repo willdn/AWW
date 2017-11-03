@@ -26,7 +26,7 @@
         <div class="ui column right aligned"
              :class="{ 'deposit-bg' : txWay === 'deposit',
                        'withdrawal-bg' : txWay === 'withdrawal' }">
-          {{ (tx.amount / 100000000).toLocaleString() }}
+          {{ (tx.amount / 100000000).toLocaleString() }} ARK
         </div>
       </div>
     </div>
@@ -68,7 +68,7 @@
         </div>
         <div class="ui column center aligned">
           <i class="icon money"></i>
-          {{ (tx.fee / 100000000).toLocaleString() }}
+          {{ (tx.fee / 100000000).toLocaleString() }} ARK
         </div>
         <div class="ui column right aligned">
           <i class="icon cube"></i>

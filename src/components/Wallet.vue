@@ -33,8 +33,16 @@
             </div>
             <div v-if="balance" class="ui equal width grid center aligned">
               <div class="ui column">
-                {{ balance.toLocaleString() }}
-                Ark
+                <div class="ui medium header">
+                  {{ balance.toLocaleString() }}
+                  <div class="ui sub header">ARK</div>
+                </div>
+              </div>
+              <div class="ui column">
+                <div class="ui medium header">
+                  {{ balance.toLocaleString() }}
+                  <div class="ui sub header">€</div>
+                </div>
               </div>
             </div>
           </div>
@@ -67,6 +75,7 @@ import { getBalance, getTransactions } from '../api/account'
 import Transaction from './Transaction'
 import Send from './Send'
 import QRCode from 'qrcode'
+import axios from 'axios'
 
 export default {
   name: 'wallet',
@@ -78,6 +87,7 @@ export default {
     return {
       refreshing: false,
       transactions: null,
+      arkValueUSD: 0,
       balance: null,
       claimAmounts: null,
       QRAddress: null
@@ -120,6 +130,20 @@ export default {
     },
     copySuccess () {
       clipboardNotification()
+    },
+    getARKMarket () {
+      axios.get(`https://api.coinmarketcap.com/v1/ticker/ark`, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          if (err) console.log(err)
+        })
     }
   },
   mounted () {
@@ -129,9 +153,11 @@ export default {
     }
     this.getBalance()
     this.getTransactions()
+    // this.getARKMarket()
     setInterval(() => {
       this.getBalance()
       this.getTransactions()
+      // this.getARKMarket()
     }, 15000)
     this.$nextTick(() => {
       QRCode.toDataURL(this.$store.getters.wallet.address, (err, url) => {
