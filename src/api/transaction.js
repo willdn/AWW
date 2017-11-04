@@ -1,4 +1,7 @@
 import { addNotification } from './notification'
+import { getNetHash } from '../api'
+import axios from 'axios'
+import store from '../store'
 import arkjs from 'arkjs'
 
 /**
@@ -39,4 +42,41 @@ export const makeTransaction = (data) => {
     data.passphrase,
     ''
   )
+}
+
+/**
+ * Submit transaction to network
+ * @param {string} - Address to get transactions
+ * @return {Promise<Response>} RPC response from sending transaction
+ */
+export const sendTransaction = (data) => {
+  return getNetHash()
+    .then((nethash) => {
+      const dataReq = JSON.stringify({ transactions: [data] })
+      return axios.post('http://167.114.29.52:4002/peer/transactions', dataReq, {
+        headers: {
+          'Content-Type': 'application/json',
+          'version': '0.3.0',
+          'port': 1,
+          'nethash': nethash
+        }
+      })
+      .then((response) => {
+        store.dispatch('setTransactionSending', false)
+        store.dispatch('toggleSendForm')
+        addNotification({
+          message: `Transaction sent`,
+          color: 'green'
+        })
+        return response
+      })
+      .catch((err) => {
+        store.dispatch('setTransactionSending', false)
+        addNotification({
+          message: err,
+          color: 'red'
+        })
+        if (err) return err
+      })
+    })
 }

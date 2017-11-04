@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { sendTransaction } from '../../api/account'
+import { sendTransaction } from '../../api/transaction'
 
 export default {
   name: 'confirmSendModal',

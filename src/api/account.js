@@ -2,8 +2,6 @@ import Mnemonic from 'bitcore-mnemonic'
 import arkjs from 'arkjs'
 import axios from 'axios'
 import store from '../store'
-import { getNetHash } from '../api'
-import { addNotification } from './notification'
 
 /**
  * Create a new wallet
@@ -83,41 +81,4 @@ export const getTransactions = (address) => {
   .catch((err) => {
     if (err) console.log(err)
   })
-}
-
-/**
- * Submit transaction to network
- * @param {string} - Address to get transactions
- * @return {Promise<Response>} RPC response from sending transaction
- */
-export const sendTransaction = (data) => {
-  return getNetHash()
-    .then((nethash) => {
-      const dataReq = JSON.stringify({ transactions: [data] })
-      return axios.post('http://167.114.29.52:4002/peer/transactions', dataReq, {
-        headers: {
-          'Content-Type': 'application/json',
-          'version': '0.3.0',
-          'port': 1,
-          'nethash': nethash
-        }
-      })
-      .then((response) => {
-        store.dispatch('setTransactionSending', false)
-        store.dispatch('toggleSendForm')
-        addNotification({
-          message: `Transaction sent`,
-          color: 'green'
-        })
-        return response
-      })
-      .catch((err) => {
-        store.dispatch('setTransactionSending', false)
-        addNotification({
-          message: err,
-          color: 'red'
-        })
-        if (err) return err
-      })
-    })
 }
