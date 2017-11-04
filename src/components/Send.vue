@@ -18,8 +18,12 @@
           <input v-model="transaction.amount" type="number" min="0">
         </div>
         <div class="field">
-          <label>Private Key</label>
-          <input v-model="passphrase" type="text" placeholder="Enter private key (WIF)">
+          <label>Message</label>
+          <input v-model="transaction.message" type="text" placeholder="Type message">
+        </div>
+        <div class="field">
+          <label>Passphrase</label>
+          <input v-model="passphrase" type="text" placeholder="Enter passphrase">
         </div>
         <button class="ui button green"
           :class="{ 'disabled': sending }"
@@ -48,7 +52,8 @@ import axios from 'axios'
 
 const defaultTransaction = {
   to: null,
-  amount: 0
+  amount: 0,
+  message: null
 }
 
 export default {
@@ -79,7 +84,7 @@ export default {
       let transaction = ark.transaction.createTransaction(
         this.transaction.to,
         amount,
-        null,
+        this.transaction.message,
         this.passphrase,
         ''
       )
@@ -90,7 +95,6 @@ export default {
           axios.post('http://167.114.29.52:4002/peer/transactions', data, {
             headers: {
               'Content-Type': 'application/json',
-              // 'os': 'linux3.2.0-4-amd64',
               'version': '0.3.0',
               'port': 1,
               'nethash': nethash
