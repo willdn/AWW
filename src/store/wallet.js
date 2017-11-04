@@ -1,7 +1,9 @@
-const state = {
+const defaultState = {
   open: false,
   address: null
 }
+
+const state = defaultState
 
 // getters
 const getters = {
@@ -12,6 +14,9 @@ const getters = {
 const actions = {
   openWallet ({ commit, state }, address) {
     commit('openWallet', address)
+  },
+  closeWallet ({ commit, state }) {
+    commit('closeWallet')
   }
 }
 
@@ -20,6 +25,10 @@ const mutations = {
   openWallet (state, address) {
     state.open = true
     state.address = address
+  },
+  closeWallet (state) {
+    state.open = false
+    state.address = null
   }
 }
 

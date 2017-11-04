@@ -20,6 +20,7 @@ const getters = {
 const actions = {
   switchNetwork ({ commit, state }) {
     commit('switchNetwork')
+    commit('closeWallet')
   },
   toggleSendForm ({ commit, state }) {
     commit('toggleSendForm')

@@ -7,6 +7,9 @@
       <div class="ui container center aligned network-switch-modal">
         <div class="ui header">
           Switch network ?
+          <div v-if="wallet.open" class="sub header">
+            Your wallet will be closed
+          </div>
         </div>
         <div class=""
         <button class="ui button green compact"
@@ -33,6 +36,9 @@ export default {
     }
   },
   computed: {
+    wallet () {
+      return this.$store.getters.wallet
+    },
     networkType () {
       return this.$store.getters.networkType
     }
