@@ -1,9 +1,11 @@
 const networksType = {
   MAIN: {
-    label: 'Main'
+    label: 'Main',
+    version: 0x17
   },
   TEST: {
-    label: 'Test'
+    label: 'Test',
+    version: 0x1e
   }
 }
 

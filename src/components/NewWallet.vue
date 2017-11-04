@@ -17,6 +17,15 @@
         <i class="icon unlock"></i>
         Open
       </div>
+      <!-- Switch network -->
+      <div class="ui button basic compact"
+        @click.prevent="switchNetwork()">
+        <i class="icon disk outline"></i>
+        Switch network
+      </div>
+      <div v-if="networkType.label === 'Test'" class="ui orange message">
+        Key generated for the <b>DEV network</b>
+      </div>
       <!-- QR keys -->
       <div v-if="wallet" class="ui equal width stackable grid segment center aligned">
         <div class="column">
@@ -94,6 +103,11 @@ export default {
       QRPassphrase: null
     }
   },
+  computed: {
+    networkType () {
+      return this.$store.getters.networkType
+    }
+  },
   methods: {
     newWallet () {
       this.wallet = createWallet()
@@ -107,6 +121,10 @@ export default {
           this.QRPassphrase = url
         })
       })
+    },
+    switchNetwork () {
+      this.$store.dispatch('switchNetwork')
+      this.wallet = createWallet()
     },
     openWallet () {
     },

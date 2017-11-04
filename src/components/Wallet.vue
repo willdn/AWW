@@ -24,9 +24,9 @@
               </div>
               <div class="ui column">
                 <div class="ui button blue compact basic"
-                    :class="{ 'disabled': !balance || !transactions }"
+                    :class="{ 'disabled': balance == null || !transactions }"
                     @click.prevent="refresh()">
-                  <i class="ui icon refresh" :class="{ 'loading': !balance || !transactions }"></i>
+                  <i class="ui icon refresh" :class="{ 'loading': balance == null || !transactions }"></i>
                   Refresh
                 </div>
               </div>
@@ -34,15 +34,15 @@
             <div class="ui equal width grid center aligned">
               <div class="ui column">
                 <div class="ui medium header">
-                  <span v-if="!balance"><i class="icon spinner loading"></i></span>
-                  <span v-if="balance">{{ balance.toLocaleString() }}</span>
+                  <span v-if="balance == null"><i class="icon spinner loading"></i></span>
+                  <span v-if="balance || balance === 0">{{ balance.toLocaleString() }}</span>
                   <div class="ui sub header">ARK</div>
                 </div>
               </div>
               <div class="ui column">
                 <div class="ui medium header">
-                  <span v-if="!balance"><i class="icon spinner loading"></i></span>
-                  <span v-if="balance">{{ balance.toLocaleString() }}</span>
+                  <span v-if="balance == null"><i class="icon spinner loading"></i></span>
+                  <span v-if="balance || balance === 0">{{ balance.toLocaleString() }}</span>
                   <div class="ui sub header">€</div>
                 </div>
               </div>

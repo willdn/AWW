@@ -9,7 +9,7 @@ import store from '../store'
  */
 export const createWallet = () => {
   let code = new Mnemonic()
-  arkjs.crypto.setNetworkVersion(0x1e)
+  arkjs.crypto.setNetworkVersion(store.getters.networkType.version)
   const keys = arkjs.crypto.getKeys(code.toString())
   const address = arkjs.crypto.getAddress(keys.publicKey)
   return {
@@ -24,7 +24,7 @@ export const createWallet = () => {
  * @return {string} Account address
  */
 export const getAddressFromPass = (passphrase) => {
-  arkjs.crypto.setNetworkVersion(0x1e)
+  arkjs.crypto.setNetworkVersion(store.getters.networkType.version)
   const keys = arkjs.crypto.getKeys(passphrase)
   return arkjs.crypto.getAddress(keys.publicKey)
 }
