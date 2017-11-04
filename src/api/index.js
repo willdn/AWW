@@ -6,8 +6,8 @@ import store from '../store'
  * @return {Object} Private/public key pair
  */
 export const getEndpoint = () => {
-  if (store.getters.networkType === 'Main') return 'https://node1.arknet.cloud'
-  if (store.getters.networkType === 'Test') return 'http://167.114.29.52:4002'
+  if (store.getters.networkType.label === 'Main') return 'https://node1.arknet.cloud'
+  if (store.getters.networkType.label === 'Test') return 'http://167.114.29.52:4002'
 }
 
 /**

@@ -5,13 +5,13 @@
       </router-link>
       
       <div  class="right menu">
-        <div class="item">
+        <div v-if="blockHeight" class="item">
           <i class="icon cube"></i>
           {{ blockHeight.toLocaleString() }}
         </div>
-        <a class="item" @click.prevent="switchNetwork()">
+        <a v-if="networkType" class="item" @click.prevent="switchNetwork()">
           <i class="icon disk outline"></i>
-          {{ networkType }}
+          {{ networkType.label }}
         </a>
       </div>
 

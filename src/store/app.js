@@ -1,13 +1,11 @@
-const networkType = {
-  MAIN: 'Main',
-  TEST: 'Test'
-}
+import networkType from '../api/networkType'
 
 const state = {
   network: networkType.TEST,
   blockHeight: 0,
   sendFormVisible: false,
-  loading: false
+  loading: false,
+  transactionSending: false
 }
 
 // getters
@@ -31,6 +29,9 @@ const actions = {
   },
   setLoadingState ({ commit, state }, loadingState) {
     commit('setLoadingState', loadingState)
+  },
+  setTransactionSending ({ commit, state }, sendingState) {
+    commit('setTransactionSending', sendingState)
   }
 }
 
@@ -51,6 +52,9 @@ const mutations = {
   },
   setLoadingState (state, loadingState) {
     state.loading = loadingState
+  },
+  setTransactionSending (state, sendingState) {
+    state.transactionSending = sendingState
   }
 }
 

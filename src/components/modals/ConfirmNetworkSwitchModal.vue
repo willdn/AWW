@@ -11,17 +11,18 @@
             Your wallet will be closed
           </div>
         </div>
-        <div class=""
-        <button class="ui button green compact"
-          @click.prevent="confirm()">
-          <i class="ui icon check"></i>
-          Yes
+        <div class="ui segment basic">
+          <button class="ui button green compact"
+            @click.prevent="confirm()">
+            <i class="ui icon check"></i>
+            Yes
+          </button>
+          <button class="ui button red compact basic"
+            @click.prevent="cancel()">
+            <i class="ui icon cancel"></i>
+            No
         </button>
-        <button class="ui button red compact basic"
-          @click.prevent="cancel()">
-          <i class="ui icon cancel"></i>
-          No
-        </button>
+        </div>
       </div>
   </modal>
 </template>
@@ -38,9 +39,6 @@ export default {
   computed: {
     wallet () {
       return this.$store.getters.wallet
-    },
-    networkType () {
-      return this.$store.getters.networkType
     }
   },
   methods: {
