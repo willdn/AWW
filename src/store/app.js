@@ -6,7 +6,8 @@ const networkType = {
 const state = {
   network: networkType.TEST,
   blockHeight: 0,
-  sendFormVisible: false
+  sendFormVisible: false,
+  loading: false
 }
 
 // getters
@@ -27,6 +28,9 @@ const actions = {
   },
   setDBHeight ({ commit, state }, blockHeight) {
     commit('setDBHeight', blockHeight)
+  },
+  setLoadingState ({ commit, state }, loadingState) {
+    commit('setLoadingState', loadingState)
   }
 }
 
@@ -44,6 +48,9 @@ const mutations = {
   },
   setDBHeight (state, blockHeight) {
     state.blockHeight = blockHeight
+  },
+  setLoadingState (state, loadingState) {
+    state.loading = loadingState
   }
 }
 

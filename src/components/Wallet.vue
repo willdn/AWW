@@ -24,23 +24,25 @@
               </div>
               <div class="ui column">
                 <div class="ui button blue compact basic"
-                    :class="{ 'disabled': refreshing }"
+                    :class="{ 'disabled': !balance || !transactions }"
                     @click.prevent="refresh()">
-                  <i class="ui icon refresh" :class="{ 'loading': refreshing }"></i>
+                  <i class="ui icon refresh" :class="{ 'loading': !balance || !transactions }"></i>
                   Refresh
                 </div>
               </div>
             </div>
-            <div v-if="balance" class="ui equal width grid center aligned">
+            <div class="ui equal width grid center aligned">
               <div class="ui column">
                 <div class="ui medium header">
-                  {{ balance.toLocaleString() }}
+                  <span v-if="!balance"><i class="icon spinner loading"></i></span>
+                  <span v-if="balance">{{ balance.toLocaleString() }}</span>
                   <div class="ui sub header">ARK</div>
                 </div>
               </div>
               <div class="ui column">
                 <div class="ui medium header">
-                  {{ balance.toLocaleString() }}
+                  <span v-if="!balance"><i class="icon spinner loading"></i></span>
+                  <span v-if="balance">{{ balance.toLocaleString() }}</span>
                   <div class="ui sub header">€</div>
                 </div>
               </div>
@@ -50,19 +52,19 @@
       </div>
       <send v-if="sendFormVisible"></send>
       <!-- Transaction header -->
-      <div v-if="transactions" class="ui header left aligned">
+      <div class="ui header left aligned">
         <i class="ui icon exchange"></i>
         <div class="content">
           Transactions
         </div>
       </div>
-      <div
-        class="ui cards"
-        v-for="transaction in transactions"
-        :key="transaction.id">
-        <transaction :tx="transaction"></transaction>
+      <div v-if="!transactions" class="ui segment center aligned">
+        <i class="icon spinner loading"></i>
+        Loading transactions
       </div>
-      <i v-if="refreshing" class="ui icon refresh loading"></i>
+      <div v-if="transactions" class="ui cards">
+        <transaction v-for="transaction in transactions" :key="transaction.id" :tx="transaction"></transaction>
+      </div>
       <div v-if="transactions && transactions.length === 0" class="ui segment center aligned">
         No transactions
       </div>
@@ -85,7 +87,6 @@ export default {
   },
   data () {
     return {
-      refreshing: false,
       transactions: null,
       arkValueUSD: 0,
       balance: null,
@@ -118,6 +119,10 @@ export default {
         })
     },
     refresh () {
+      this.transactions = null
+      this.balance = null
+      this.getTransactions()
+      this.getBalance()
     },
     copySuccess () {
       clipboardNotification()
@@ -137,11 +142,16 @@ export default {
         })
     }
   },
+  beforeDestroy () {
+    this.$store.dispatch('closeWallet')
+  },
   mounted () {
+    // Redirect if no wallet opened
     if (!this.$store.getters.wallet.open) {
       this.$router.push({ name: 'OpenWallet' })
       return null
     }
+    // this.$store.dispatch('setLoadingState', true)
     this.getBalance()
     this.getTransactions()
     // this.getARKMarket()
