@@ -1,10 +1,23 @@
-# arkwebwallet
+# ARK Web Wallet
 
-> A Vue.js project
+ARK Web Wallet (AWW) is an online wallet for the [ARK](https://ark.io) blockchain using Vue.js
+
+## Features
+
+- Generate new wallet
+- Check ARK balances
+- Send transaction
+- View transactions
+- (WIP) Vote for delegate
+- (WIP) Register as delegate
+
 
 ## Build Setup
 
 ``` bash
+git clone https://github.com/williamdn/AWW.git
+cd AWW/
+
 # install dependencies
 npm install
 
@@ -20,11 +33,6 @@ npm run build --report
 # run unit tests
 npm run unit
 
-# run e2e tests
-npm run e2e
-
 # run all tests
 npm test
 ```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
