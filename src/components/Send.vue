@@ -61,8 +61,8 @@
 
 <script>
 import ConfirmSendModal from './modals/ConfirmSendModal'
-import { addNotification } from '../api/notification'
-import { getBalance, makeTransaction } from '../api/account'
+import { validateTransaction, makeTransaction } from '../api/transaction'
+import { getBalance } from '../api/account'
 import ark from 'arkjs'
 
 const defaultTransaction = {
@@ -97,32 +97,20 @@ export default {
   methods: {
     send () {
       // Validation
-      let valid = true
-      if (this.passphrase == null || this.passphrase === '') {
-        addNotification({
-          message: `Passphrase is not valid`,
-          color: 'red'
-        })
-        valid = false
-      }
-      if (!ark.crypto.validateAddress(this.transaction.to)) {
-        addNotification({
-          message: `Address is not valid`,
-          color: 'red'
-        })
-        valid = false
-      }
-      if (!valid) {
-        return false
-      }
-      // Make transaction
-      let tx = makeTransaction({
+      const data = {
         transaction: this.transaction,
         passphrase: this.passphrase
-      })
-      this.$modal.show('confirmSendModal', {
-        transaction: tx
-      })
+      }
+      if (validateTransaction(data)) {
+        // Make transaction
+        let tx = makeTransaction({
+          transaction: this.transaction,
+          passphrase: this.passphrase
+        })
+        this.$modal.show('confirmSendModal', {
+          transaction: tx
+        })
+      }
     },
     sendMaxAmount () {
       getBalance(this.wallet.address)

@@ -86,22 +86,6 @@ export const getTransactions = (address) => {
 }
 
 /**
- * Make transaction
- * @param {Object} - Transaction parameters
- * @return {Object} Transaction
- */
-export const makeTransaction = (data) => {
-  let amount = data.transaction.amount * Math.pow(10, 8)
-  return arkjs.transaction.createTransaction(
-    data.transaction.to,
-    amount,
-    data.transaction.message,
-    data.passphrase,
-    ''
-  )
-}
-
-/**
  * Submit transaction to network
  * @param {string} - Address to get transactions
  * @return {Promise<Response>} RPC response from sending transaction
