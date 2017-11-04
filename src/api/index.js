@@ -11,8 +11,8 @@ export const getEndpoint = () => {
 }
 
 /**
- * Create a new wallet
- * @return {Object} Private/public key pair
+ * Get blockchain height
+ * @return {Promise<Response>} Block height
  */
 export const getBlocksHeight = () => {
   return axios.get(`${getEndpoint()}/api/blocks/getHeight`)
@@ -26,7 +26,7 @@ export const getBlocksHeight = () => {
 
 /**
  * Get network hash
- * @return {string} Network hash
+ * @return {Promise<Response>} Network hash
  */
 export const getNetHash = () => {
   return axios.get(`${getEndpoint()}/api/blocks/getNetHash`)

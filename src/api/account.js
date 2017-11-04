@@ -2,6 +2,7 @@ import Mnemonic from 'bitcore-mnemonic'
 import arkjs from 'arkjs'
 import axios from 'axios'
 import store from '../store'
+import { getNetHash } from '../api'
 
 /**
  * Create a new wallet
@@ -40,8 +41,8 @@ export const getEndpoint = () => {
 
 /**
  * Get account details
- * @param - Address to get details
- * @return {Object} Account details
+ * @param {string} - Address to get details
+ * @return {Promise<Response>} Account details
  */
 export const getAccount = (address) => {
   return axios.get(`${getEndpoint()}/api/accounts?address=${address}`)
@@ -55,8 +56,8 @@ export const getAccount = (address) => {
 
 /**
  * Get balance from address
- * @param - Address to get balance
- * @return {number} Balance
+ * @param {string} - Address to get balance
+ * @return {Promise<Response>} Balance
  */
 export const getBalance = (address) => {
   return axios.get(`${getEndpoint()}/api/accounts/getBalance?address=${address}`)
@@ -70,8 +71,8 @@ export const getBalance = (address) => {
 
 /**
  * Get transaction list
- * @param - Address to get transactions
- * @return {Array} Transactions
+ * @param {string} - Address to get transactions from
+ * @return {Promise<Response>} Transactions
  */
 export const getTransactions = (address) => {
   return axios.get(`${getEndpoint()}/api/transactions?recipientId=${address}&senderId=${address}`)
@@ -80,5 +81,31 @@ export const getTransactions = (address) => {
   })
   .catch((err) => {
     if (err) console.log(err)
+  })
+}
+
+/**
+ * Submit transaction to network
+ * @param {string} - Address to get transactions
+ * @return {Promise<Response>} RPC response from sending transaction
+ */
+export const sendTransaction = (tx) => {
+  return getNetHash()
+  .then((nethash) => {
+    const data = JSON.stringify({ transactions: [tx] })
+    return axios.post('http://167.114.29.52:4002/peer/transactions', data, {
+      headers: {
+        'Content-Type': 'application/json',
+        'version': '0.3.0',
+        'port': 1,
+        'nethash': nethash
+      }
+    })
+    .then((response) => {
+      return response
+    })
+    .catch((err) => {
+      if (err) return err
+    })
   })
 }
