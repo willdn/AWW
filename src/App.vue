@@ -2,6 +2,7 @@
   <div id="app">
     <top-header></top-header>
     <router-view></router-view>
+    <confirm-network-switch-modal></confirm-network-switch-modal>
   </div>
 </template>
 
@@ -10,11 +11,13 @@ import { getBlocksHeight } from './api'
 import '../node_modules/semantic-ui-css/semantic.min.css'
 import '../node_modules/izitoast/dist/css/iziToast.min.css'
 import TopHeader from './components/layouts/TopHeader'
+import ConfirmNetworkSwitchModal from './components/modals/ConfirmNetworkSwitchModal'
 
 export default {
   name: 'app',
   components: {
-    TopHeader
+    TopHeader,
+    ConfirmNetworkSwitchModal
   },
   watch: {
     networkType (val) {

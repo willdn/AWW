@@ -93,9 +93,6 @@ export default {
     }
   },
   computed: {
-    networkType () {
-      return this.$store.getters.networkType
-    },
     address () {
       return this.$store.getters.wallet.address
     },

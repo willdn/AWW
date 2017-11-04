@@ -1,0 +1,60 @@
+<template>
+  <modal
+    name="confirmNetworkSwitchModal"
+    height="auto"
+    @before-open="beforeOpen"
+    @closed="closed">
+      <div class="ui container center aligned network-switch-modal">
+        <div class="ui header">
+          Switch network ?
+        </div>
+        <div class=""
+        <button class="ui button green compact"
+          @click.prevent="confirm()">
+          <i class="ui icon check"></i>
+          Yes
+        </button>
+        <button class="ui button red compact basic"
+          @click.prevent="cancel()">
+          <i class="ui icon cancel"></i>
+          No
+        </button>
+      </div>
+  </modal>
+</template>
+
+<script>
+
+export default {
+  name: 'confirmNetworkSwitchModal',
+  data () {
+    return {
+      action: null
+    }
+  },
+  computed: {
+    networkType () {
+      return this.$store.getters.networkType
+    }
+  },
+  methods: {
+    confirm () {
+      this.$modal.hide('confirmNetworkSwitchModal')
+      this.$store.dispatch('switchNetwork')
+      this.$router.push({ name: 'Main' })
+    },
+    cancel () {
+      this.$modal.hide('confirmNetworkSwitchModal')
+    },
+    beforeOpen (event) {
+    },
+    closed (event) {
+    }
+  }
+}
+</script>
+<style scoped>
+.network-switch-modal {
+  padding: 1.5em;
+}
+</style>

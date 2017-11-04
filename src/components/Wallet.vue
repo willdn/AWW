@@ -97,17 +97,8 @@ export default {
     wallet () {
       return this.$store.getters.wallet
     },
-    networkType () {
-      return this.$store.getters.networkType
-    },
     sendFormVisible () {
       return this.$store.getters.app.sendFormVisible
-    }
-  },
-  watch: {
-    networkType (val) {
-      this.getTransactions()
-      this.getBalance()
     }
   },
   methods: {

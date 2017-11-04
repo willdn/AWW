@@ -67,13 +67,6 @@ export default {
   computed: {
     wallet () {
       return this.$store.getters.wallet
-    },
-    networkType () {
-      return this.$store.getters.networkType
-    }
-  },
-  watch: {
-    networkType (val) {
     }
   },
   methods: {

@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     switchNetwork () {
-      this.$store.dispatch('switchNetwork')
+      this.$modal.show('confirmNetworkSwitchModal')
     }
   },
   mounted () {

@@ -4,8 +4,10 @@ import store from './store'
 import router from './router'
 // Plugins
 import VueClipboards from 'vue-clipboards'
+import VModal from 'vue-js-modal'
 
 Vue.use(VueClipboards)
+Vue.use(VModal)
 
 Vue.config.productionTip = false
 
