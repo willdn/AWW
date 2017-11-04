@@ -11,15 +11,24 @@
       <form class="ui form">
         <div class="field">
           <label>Address</label>
-          <input v-model="transaction.to" type="text" placeholder="Enter recipient address">
+          <div class="ui icon input">
+            <input v-model="transaction.to" type="text" placeholder="Enter recipient address">
+            <i v-if="addressValid" class="icon check green"></i>
+          </div>
         </div>
         <div class="field">
           <label>Amount</label>
-          <input v-model="transaction.amount" type="number" min="0">
+          <div class="ui right action input">
+            <input v-model="transaction.amount" type="number" min="0">
+            <div class="ui basic button"
+                @click.prevent="sendMaxAmount()">
+              MAX
+            </div>
+          </div>
         </div>
         <div class="field">
           <label>Message</label>
-          <input v-model="transaction.message" type="text" placeholder="Type message">
+          <input v-model="transaction.message" type="text" placeholder="Type message (Optionnal)">
         </div>
         <div class="field">
           <label>Passphrase</label>
@@ -46,7 +55,7 @@
 
 <script>
 import { addNotification } from '../api/notification'
-import { sendTransaction } from '../api/account'
+import { sendTransaction, getBalance } from '../api/account'
 import ark from 'arkjs'
 
 const defaultTransaction = {
@@ -67,11 +76,34 @@ export default {
   computed: {
     wallet () {
       return this.$store.getters.wallet
+    },
+    addressValid () {
+      return ark.crypto.validateAddress(this.transaction.to)
     }
   },
   methods: {
     send () {
       this.sending = true
+      // Validation
+      let valid = true
+      if (this.passphrase == null || this.passphrase === '') {
+        addNotification({
+          message: `Passphrase is not valid`,
+          color: 'red'
+        })
+        valid = false
+      }
+      if (!ark.crypto.validateAddress(this.transaction.to)) {
+        addNotification({
+          message: `Address is not valid`,
+          color: 'red'
+        })
+        valid = false
+      }
+      if (!valid) {
+        this.sending = false
+        return false
+      }
       // Create transaction
       let amount = this.transaction.amount * Math.pow(10, 8)
       let transaction = ark.transaction.createTransaction(
@@ -100,6 +132,12 @@ export default {
             })
             this.sending = false
           }
+        })
+    },
+    sendMaxAmount () {
+      getBalance(this.wallet.address)
+        .then((response) => {
+          this.transaction.amount = response
         })
     },
     validateForm () {
