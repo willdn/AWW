@@ -40,7 +40,7 @@ export const makeTransaction = (data) => {
     amount,
     data.transaction.message,
     data.passphrase,
-    ''
+    null
   )
 }
 
