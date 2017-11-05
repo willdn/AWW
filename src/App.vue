@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <top-header></top-header>
-    <router-view></router-view>
+    <router-view id="app-content"></router-view>
+    <bottom-footer></bottom-footer>
+    <!-- Modals -->
     <confirm-network-switch-modal></confirm-network-switch-modal>
   </div>
 </template>
@@ -12,12 +14,14 @@ import '../node_modules/semantic-ui-css/semantic.min.css'
 import '../node_modules/izitoast/dist/css/iziToast.min.css'
 import TopHeader from './components/layouts/TopHeader'
 import ConfirmNetworkSwitchModal from './components/modals/ConfirmNetworkSwitchModal'
+import BottomFooter from './components/layouts/BottomFooter'
 
 export default {
   name: 'app',
   components: {
     TopHeader,
-    ConfirmNetworkSwitchModal
+    ConfirmNetworkSwitchModal,
+    BottomFooter
   },
   watch: {
     networkType (val) {
@@ -49,6 +53,14 @@ export default {
 <style>
 body {
   background-color: rgba(218, 218, 218, 0.50) !important;
+}
+#app {
+  display: flex !important;
+  min-height: 100vh !important;
+  flex-direction: column !important;
+}
+#app-content {
+  flex: 1;
 }
 .fa {
   margin-right: 0.25em !important;
