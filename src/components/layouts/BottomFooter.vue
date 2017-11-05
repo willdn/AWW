@@ -8,7 +8,7 @@
       </div>
       <div class="column">
         <a target="_blank" href="https://ark.io" class="footer-link">
-          <img class="ui spaced image" :src="`../../static/ark-icon.png`">
+          <img class="ui spaced image" :src="require('../../assets/img/ark-icon.png')">
           Ark
         </a>
       </div>

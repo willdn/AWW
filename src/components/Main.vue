@@ -2,7 +2,7 @@
   <div class="ui container">
     <div class="ui segment basic center aligned">
       <!-- Ark logo -->
-      <img class="ui centered image tiny" :src="`../../static/ark-logo.png`">
+      <img class="ui centered image tiny" :src="require('../assets/img/ark-logo.png')">
       <div class="ui segment center aligned">
         <div class="ui equal width grid">
           <div class="column">
