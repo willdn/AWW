@@ -5,7 +5,11 @@
           Open Ark wallet
         </div>
       </h2>
-
+      <div class="ui button teal compact"
+        @click.prevent="newWallet()">
+        <i class="fa fa-plus"></i>
+        New
+      </div>
       <div class="ui segment center aligned">
         <form class="ui form">
           <div class="field">
@@ -39,6 +43,9 @@ export default {
         this.$router.push({ name: 'Wallet' })
         this.passphrase = ''
       }
+    },
+    newWallet () {
+      this.$router.push({ name: 'NewWallet' })
     }
   },
   mounted () {

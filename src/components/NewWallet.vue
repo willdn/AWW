@@ -127,6 +127,7 @@ export default {
       this.wallet = createWallet()
     },
     openWallet () {
+      this.$router.push({ name: 'OpenWallet' })
     },
     copySuccess () {
       clipboardNotification()
