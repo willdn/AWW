@@ -35,6 +35,9 @@ export const validateTransaction = (data) => {
  */
 export const makeTransaction = (data) => {
   let amount = data.transaction.amount * Math.pow(10, 8)
+  console.log('make tx api')
+  console.log(amount)
+  console.log(data)
   return arkjs.transaction.createTransaction(
     data.transaction.to,
     amount,

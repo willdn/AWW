@@ -65,8 +65,8 @@ import { getBalance } from '../api/account'
 import ark from 'arkjs'
 
 const defaultTransaction = {
-  to: null,
-  amount: 0,
+  to: 'D5GcwQbPasZPmZvbPUc3bgDcvhpFT5Q36q',
+  amount: 2,
   message: null
 }
 
@@ -78,7 +78,7 @@ export default {
   data () {
     return {
       sending: false,
-      passphrase: null,
+      passphrase: 'wheel cannon into tube ball festival chat adult harbor point seat heavy',
       transaction: defaultTransaction
     }
   },
@@ -101,11 +101,15 @@ export default {
         passphrase: this.passphrase
       }
       if (validateTransaction(data)) {
+        console.log('before transaction')
+        console.log(data)
         // Make transaction
         let tx = makeTransaction({
           transaction: this.transaction,
           passphrase: this.passphrase
         })
+        console.log('make transaction')
+        console.log(tx)
         this.$modal.show('confirmSendModal', {
           transaction: tx
         })

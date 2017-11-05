@@ -65,6 +65,9 @@ export default {
       return this.transaction.fee / Math.pow(10, 8)
     }
   },
+  mounted () {
+    console.log('confirm modal send mounted')
+  },
   methods: {
     confirm () {
       this.$modal.hide('confirmSendModal')
@@ -75,6 +78,8 @@ export default {
       this.$modal.hide('confirmSendModal')
     },
     beforeOpen (event) {
+      console.log('before open')
+      console.log(event)
       this.transaction = event.params.transaction
     },
     closed (event) {
