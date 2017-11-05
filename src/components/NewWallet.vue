@@ -1,46 +1,45 @@
 <template>
   <div class="ui container center aligned">
-      <h2 class="ui header">
-        <div class="content">
-          New Ark wallet
-        </div>
-      </h2>
-      <!-- Generate new wallet button -->
-      <div class="ui button teal compact"
-        @click.prevent="newWallet()">
-        <i class="fa fa-refresh"></i>
-        New
-      </div>
-      <!-- Open generated wallet -->
-      <div class="ui button green compact"
-        @click.prevent="openWallet()">
-        <i class="fa fa-unlock"></i>
-        Open
-      </div>
-      <!-- Switch network -->
-      <div class="ui button basic compact"
-        @click.prevent="switchNetwork()">
-        <i class="fa fa-hdd-o"></i>
-        Switch network
-      </div>
       <div v-if="networkType.label === 'Test'" class="ui orange message">
         Key generated for the <b>DEV network</b>
       </div>
       <!-- QR keys -->
-      <div v-if="wallet" class="ui equal width stackable grid segment center aligned">
-        <div class="column">
-              <div class="content">
-                <div class="ui header">Address</div>
-                <img class="ui centered image" width="148" :src="QRAddress" />
-                <div>{{ wallet.address }}</div>
-            </div>
+      <div class="ui segment center aligned">
+        <div class="ui segment basic">
+          <!-- Generate new wallet button -->
+          <div class="ui button teal compact"
+            @click.prevent="newWallet()">
+            <i class="fa fa-refresh"></i>
+            New
+          </div>
+          <!-- Open generated wallet -->
+          <div class="ui button green compact"
+            @click.prevent="openWallet()">
+            <i class="fa fa-unlock"></i>
+            Open
+          </div>
+          <!-- Switch network -->
+          <div class="ui button basic compact"
+            @click.prevent="switchNetwork()">
+            <i class="fa fa-hdd-o"></i>
+            Switch network
+          </div>
         </div>
-        <div class="column">
-              <div class="content">
-                <div class="ui header">Passphrase</div>
-                <img class="ui centered image" width="148" :src="QRPassphrase" />
-                <div>{{ wallet.passphrase }}</div>
-            </div>
+        <div v-if="wallet" class="ui equal width stackable grid">
+          <div class="column">
+                <div class="content">
+                  <div class="ui header">Address</div>
+                  <img class="ui centered image" width="148" :src="QRAddress" />
+                  <div>{{ wallet.address }}</div>
+              </div>
+          </div>
+          <div class="column">
+                <div class="content">
+                  <div class="ui header">Passphrase</div>
+                  <img class="ui centered image" width="148" :src="QRPassphrase" />
+                  <div>{{ wallet.passphrase }}</div>
+              </div>
+          </div>
         </div>
       </div>
       <div v-if="wallet" class="ui segment left aligned">
