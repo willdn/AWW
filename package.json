@@ -19,6 +19,7 @@
     "bitcore-mnemonic": "^1.5.0",
     "izitoast": "^1.1.5",
     "moment": "^2.19.1",
+    "qrcode": "^0.9.0",
     "semantic-ui-css": "^2.2.12",
     "vue": "^2.5.2",
     "vue-clipboards": "^1.1.0",
