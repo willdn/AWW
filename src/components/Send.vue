@@ -65,8 +65,8 @@ import { getBalance } from '../api/account'
 import ark from 'arkjs'
 
 const defaultTransaction = {
-  to: 'D5GcwQbPasZPmZvbPUc3bgDcvhpFT5Q36q',
-  amount: 2,
+  to: null,
+  amount: 0,
   message: null
 }
 
@@ -78,7 +78,7 @@ export default {
   data () {
     return {
       sending: false,
-      passphrase: 'wheel cannon into tube ball festival chat adult harbor point seat heavy',
+      passphrase: '',
       transaction: defaultTransaction
     }
   },
