@@ -1,9 +1,9 @@
 {
-  "name": "arkwebwallet",
+  "name": "ArkWebWallet",
   "version": "1.0.0",
-  "description": "A Vue.js project",
-  "author": "will <denswilliam@hotmail.com>",
-  "private": true,
+  "description": "Web wallet for ARK blockchain",
+  "author": "willdn",
+  "license": "MIT",
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "npm run dev",
