@@ -2,6 +2,11 @@ import axios from 'axios'
 import store from '../store'
 
 /**
+ * @property {string} networkFee - Network fee
+ */
+export const networkFee = 0.1
+
+/**
  * Return API endpoint
  * @return {string} Endpoint
  */

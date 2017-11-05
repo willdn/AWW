@@ -61,6 +61,7 @@
 <script>
 import ConfirmSendModal from './modals/ConfirmSendModal'
 import { validateTransaction, makeTransaction } from '../api/transaction'
+import { networkFee } from '../api'
 import { getBalance } from '../api/account'
 import ark from 'arkjs'
 
@@ -114,7 +115,7 @@ export default {
     sendMaxAmount () {
       getBalance(this.wallet.address)
         .then((response) => {
-          this.transaction.amount = response
+          this.transaction.amount = response - networkFee
         })
     },
     validateForm () {
