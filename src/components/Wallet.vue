@@ -87,6 +87,7 @@ export default {
   },
   data () {
     return {
+      timer: null,
       transactions: null,
       arkValueUSD: 0,
       balance: null,
@@ -143,6 +144,7 @@ export default {
     }
   },
   beforeDestroy () {
+    clearInterval(this.timer)
     this.$store.dispatch('closeWallet')
   },
   mounted () {
@@ -155,7 +157,7 @@ export default {
     this.getBalance()
     this.getTransactions()
     // this.getARKMarket()
-    setInterval(() => {
+    this.timer = setInterval(() => {
       this.getBalance()
       this.getTransactions()
       // this.getARKMarket()
