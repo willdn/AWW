@@ -101,15 +101,11 @@ export default {
         passphrase: this.passphrase
       }
       if (validateTransaction(data)) {
-        console.log('before transaction')
-        console.log(data)
         // Make transaction
         let tx = makeTransaction({
           transaction: this.transaction,
           passphrase: this.passphrase
         })
-        console.log('make transaction')
-        console.log(tx)
         this.$modal.show('confirmSendModal', {
           transaction: tx
         })

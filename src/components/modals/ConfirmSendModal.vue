@@ -66,7 +66,6 @@ export default {
     }
   },
   mounted () {
-    console.log('confirm modal send mounted')
   },
   methods: {
     confirm () {
@@ -78,8 +77,6 @@ export default {
       this.$modal.hide('confirmSendModal')
     },
     beforeOpen (event) {
-      console.log('before open')
-      console.log(event)
       this.transaction = event.params.transaction
     },
     closed (event) {
