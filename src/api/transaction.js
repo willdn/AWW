@@ -1,5 +1,5 @@
 import { addNotification } from './notification'
-import { getNetHash } from '../api'
+import { getNetHash, getEndpoint } from '../api'
 import axios from 'axios'
 import store from '../store'
 import arkjs from 'arkjs'
@@ -53,7 +53,7 @@ export const sendTransaction = (data) => {
   return getNetHash()
     .then((nethash) => {
       const dataReq = JSON.stringify({ transactions: [data] })
-      return axios.post('http://167.114.29.52:4002/peer/transactions', dataReq, {
+      return axios.post(`${getEndpoint()}/peer/transactions`, dataReq, {
         headers: {
           'Content-Type': 'application/json',
           'version': '0.3.0',

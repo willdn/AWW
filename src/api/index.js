@@ -2,12 +2,12 @@ import axios from 'axios'
 import store from '../store'
 
 /**
- * Create a new wallet
- * @return {Object} Private/public key pair
+ * Return API endpoint
+ * @return {string} Endpoint
  */
 export const getEndpoint = () => {
   if (store.getters.networkType.label === 'Main') return 'https://node1.arknet.cloud'
-  if (store.getters.networkType.label === 'Test') return 'http://167.114.29.52:4002'
+  if (store.getters.networkType.label === 'Test') return 'https://dev.arkcoin.net'
 }
 
 /**

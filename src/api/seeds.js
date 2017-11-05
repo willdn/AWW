@@ -4,6 +4,7 @@ const seeds = {
     'https://api.arkcoin.net'
   ],
   TEST: [
+    'https://dev.arkcoin.net',
     'http://167.114.29.52:4002'
   ]
 }
