@@ -7,6 +7,11 @@ import store from '../store'
 export const networkFee = 0.1
 
 /**
+ * @property {string} donationAddress - Donation address
+ */
+export const donationAddress = 'AePNZAAtWhLsGFLXtztGLAPnKm98VVC8tJ'
+
+/**
  * Return API endpoint
  * @return {string} Endpoint
  */

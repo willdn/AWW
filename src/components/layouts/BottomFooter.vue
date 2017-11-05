@@ -1,27 +1,34 @@
 <template>
   <div class="ui segment fluid center aligned footer">
     <div class="ui grid equal width center aligned">
-      <div class="column">
-        <a target="_blank" href="https://github.com/willdn/AWW" class="footer-link">
-          <i class="fa fa-github fa-lg"></i> Github
-        </a>
-      </div>
-      <div class="column">
-        <a target="_blank" href="https://ark.io" class="footer-link">
-          <img class="ui spaced image" :src="require('../../assets/img/ark-icon.png')">
-          Ark
-        </a>
-      </div>
+      <a target="_blank" href="https://github.com/willdn/AWW" class="column footer-link">
+        <i class="fa fa-github fa-lg"></i> Github
+      </a>
+      <a target="_blank" href="https://ark.io" class="column footer-link">
+        <img class="ui spaced image" :src="require('../../assets/img/ark-icon.png')">
+        Ark
+      </a>
+      <a @click.prevent="donationModal()" class="column footer-link">
+        <b>Donation</b>: {{ donationAddress }}
+      </a>
     </div>
   </div>
 </template>
 
 <script>
+import { truncateHash } from '../../api/utils'
+import { donationAddress } from '../../api'
 
 export default {
   name: 'bottomFooter',
-  data () {
-    return {
+  computed: {
+    donationAddress () {
+      return truncateHash(donationAddress, 5)
+    }
+  },
+  methods: {
+    donationModal () {
+      this.$modal.show('donationModal')
     }
   }
 }
@@ -36,5 +43,8 @@ export default {
 .footer-link {
   font-weight: bold;
   color: rgba(0,0,0,.87);
+}
+.footer-link:hover {
+  background: rgba(64, 64, 64, 0.1);
 }
 </style>
