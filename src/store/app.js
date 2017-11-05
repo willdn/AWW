@@ -1,11 +1,13 @@
 import networkType from '../api/networkType'
+import currencies from '../api/currencies'
 
 const state = {
   network: networkType.TEST,
   blockHeight: 0,
   sendFormVisible: false,
   loading: false,
-  transactionSending: false
+  transactionSending: false,
+  fiatCurrency: currencies.EUR
 }
 
 // getters
@@ -32,6 +34,9 @@ const actions = {
   },
   setTransactionSending ({ commit, state }, sendingState) {
     commit('setTransactionSending', sendingState)
+  },
+  setFiatCurrency ({ commit, state }, currency) {
+    commit('setFiatCurrency', currency)
   }
 }
 
@@ -55,6 +60,9 @@ const mutations = {
   },
   setTransactionSending (state, sendingState) {
     state.transactionSending = sendingState
+  },
+  setFiatCurrency (state, currency) {
+    state.fiatCurrency = currency
   }
 }
 
