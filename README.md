@@ -15,7 +15,7 @@ ARK Web Wallet (AWW) is an online wallet for the [ARK](https://ark.io) blockchai
 ## Build Setup
 
 ``` bash
-git clone https://github.com/williamdn/AWW.git
+git clone https://github.com/willdn/AWW.git
 cd AWW/
 
 # install dependencies
