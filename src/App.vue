@@ -48,38 +48,38 @@ export default {
 
 <style>
 body {
-  background-color: rgba(218, 218, 218, 0.50);
+  background-color: rgba(218, 218, 218, 0.50) !important;
 }
 .fa {
   margin-right: 0.25em !important;
 }
 .ui.form .field.success label {
-    color: #308330;
+    color: #308330 !important;
 }
 .ui.form .field.success input {
-    background: #f4faf4 none repeat scroll 0 0;
-    border-color: #a3c293;
-    border-radius: 0.285714rem;
-    box-shadow: none;
-    color: #308330;
+    background: #f4faf4 none repeat scroll 0 0 !important;
+    border-color: #a3c293 !important;
+    border-radius: 0.285714rem !important;
+    box-shadow: none !important;
+    color: #308330 !important;
 }
 /* Success Placeholder */
 .ui.form .success ::-webkit-input-placeholder {
-    color: #5e9e5e;
+    color: #5e9e5e !important;
 }
 .ui.form .success ::-ms-input-placeholder {
-    color: #5e9e5e;
+    color: #5e9e5e !important;
 }
 .ui.form .success ::-moz-placeholder {
-    color: #5e9e5e;
+    color: #5e9e5e !important;
 }
 .ui.form .success :focus::-webkit-input-placeholder {
-    color: #558e55;
+    color: #558e55 !important;
 }
 .ui.form .success :focus::-ms-input-placeholder {
-    color: #558e55;
+    color: #558e55 !important;
 }
 .ui.form .success :focus::-moz-placeholder {
-    color: #558e55;
+    color: #558e55 !important;
 }
 </style>
