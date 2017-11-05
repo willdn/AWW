@@ -3,7 +3,6 @@
       <router-link :to="{ name: 'Main'}" class="header item">
         Ark Web Wallet
       </router-link>
-      
       <div  class="right menu">
         <div v-if="blockHeight" class="item">
           <i class="fa fa-cube"></i>

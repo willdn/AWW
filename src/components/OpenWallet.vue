@@ -1,26 +1,26 @@
 <template>
-  <div class="ui container center aligned">
-      <h2 class="ui header">
-        <div class="content">
-          Open Ark wallet
-        </div>
-      </h2>
-      <div class="ui button teal compact"
-        @click.prevent="newWallet()">
-        <i class="fa fa-plus"></i>
-        New
-      </div>
+
+  <div class="ui container">
+    <div class="ui segment basic center aligned">
+      <!-- Ark logo -->
+      <img class="ui centered image tiny" :src="require('../assets/img/ark-logo.png')">
       <div class="ui segment center aligned">
         <form class="ui form">
           <div class="field">
             <input v-model="passphrase" class="input" type="text" placeholder="Enter passphrase">
           </div>
-          <button @click.prevent="openWallet()" class="ui button green">
+          <button @click.prevent="openWallet()" class="ui button green"
+                  :class="{ 'disabled': passphrase === '' }">
             <i class="fa fa-unlock"></i>
             Open
           </button>
+          <button @click.prevent="newWallet()" class="ui button teal basic">
+            <i class="fa fa-plus"></i>
+            New
+          </button>
         </form>
       </div>
+    </div>
   </div>
 </template>
 
@@ -53,5 +53,13 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.ui.segment {
+  width:100%;
+}
+.container{
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+}
 </style>
