@@ -12,7 +12,7 @@
             <input v-model="passphrase" class="input" type="text" placeholder="Enter passphrase">
           </div>
           <button @click.prevent="openWallet()" class="ui button green">
-            <i class="icon unlock"></i>
+            <i class="fa fa-unlock"></i>
             Open
           </button>
         </form>

@@ -7,19 +7,19 @@
       <div class="ui equal width grid">
         <!-- Date -->
         <div class="ui column left aligned">
-          <i class="icon calendar"></i>
+          <i class="fa fa-calendar"></i>
           {{ date }}
         </div>
         <!-- From -->
         <div class="ui column left aligned"
             :class="{ 'is-address': tx.senderId === address }">
-          <i class="icon chevron left"></i>
+          <i class="fa fa-chevron-left"></i>
           {{ truncateTxId(tx.senderId) }}
         </div>
         <!-- To -->
         <div class="ui column left aligned"
             :class="{ 'is-address': tx.recipientId === address }">
-          <i class="icon chevron right"></i>
+          <i class="fa fa-chevron-right"></i>
           {{ truncateTxId(tx.recipientId) }}
         </div>
         <!-- Amount -->
@@ -43,7 +43,7 @@
           </div>
         </div>
         <div class="ui column middle aligned">
-          <i class="icon arrow right"></i>
+          <i class="fa fa-arrow-right"></i>
         </div>
         <div class="ui column">
           <div class="ui small header">To</div>
@@ -58,20 +58,20 @@
       <div class="ui equal width grid">
         <!-- Tx hash -->
         <div class="ui column left aligned">
-          <i class="icon hashtag"></i>
+          <i class="fa fa-hashtag"></i>
           {{ truncateTxId(tx.id) }}
           <a
             v-clipboard="tx.id"
             @success="copySuccess()">
-            <i class="icon copy"></i>
+            <i class="fa fa-copy"></i>
           </a>
         </div>
         <div class="ui column center aligned">
-          <i class="icon money"></i>
+          <i class="fa fa-money"></i>
           {{ (tx.fee / 100000000).toLocaleString() }} ARK
         </div>
         <div class="ui column right aligned">
-          <i class="icon cube"></i>
+          <i class="fa fa-cube"></i>
           {{ tx.confirmations.toLocaleString() }}
         </div>
       </div>

@@ -34,12 +34,12 @@
         <div class="ui segment basic">
           <button class="ui button green compact"
             @click.prevent="confirm()">
-            <i class="ui icon check"></i>
+            <i class="fa fa-check"></i>
             Yes
           </button>
           <button class="ui button red compact basic"
             @click.prevent="cancel()">
-            <i class="ui icon cancel"></i>
+            <i class="fa fa-remove"></i>
             No
           </button>
         </div>

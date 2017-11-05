@@ -6,11 +6,11 @@
       
       <div  class="right menu">
         <div v-if="blockHeight" class="item">
-          <i class="icon cube"></i>
+          <i class="fa fa-cube"></i>
           {{ blockHeight.toLocaleString() }}
         </div>
         <a v-if="networkType" class="item" @click.prevent="switchNetwork()">
-          <i class="icon disk outline"></i>
+          <i class="fa fa-hdd-o"></i>
           {{ networkType.label }}
         </a>
       </div>

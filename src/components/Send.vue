@@ -2,19 +2,18 @@
   <div class="ui container">
     <!-- Send header -->
     <div class="ui header left aligned">
-      <i class="ui icon send outline"></i>
+      <i class="fa fa-send-o"></i>
       <div class="content">
         Send
       </div>
     </div>
     <div class="ui segment">
       <form class="ui form">
-        <div class="field">
+        <div class="field" :class="{ 'success': addressValid }">
           <label>Address</label>
-          <div class="ui icon input">
+          <div class="ui input">
             <input v-model="transaction.to" type="text" placeholder="Enter recipient address"
                    :disabled="transactionSending">
-            <i v-if="addressValid" class="icon check green"></i>
           </div>
         </div>
         <div class="field">
@@ -41,15 +40,15 @@
         <button class="ui button green"
           :class="{ 'disabled': transactionSending }"
           @click.prevent="send()">
-          <i v-if="!transactionSending" class="ui icon send outline"></i>
-          <i v-if="transactionSending" class="ui icon spinner loading"></i>
+          <i v-if="!transactionSending" class="fa fa-send-o"></i>
+          <i v-if="transactionSending" class="fa fa-spinner fa-spin"></i>
           <span v-if="!transactionSending">Send</span>
           <span v-if="transactionSending">Sending</span>
         </button>
         <button class="ui button basic"
           v-if="!transactionSending"
           @click.prevent="closeSendForm()">
-          <i class="ui icon cancel"></i>
+          <i class="fa fa-remove"></i>
           Close
         </button>
       </form>

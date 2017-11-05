@@ -8,19 +8,19 @@
       <!-- Generate new wallet button -->
       <div class="ui button teal compact"
         @click.prevent="newWallet()">
-        <i class="icon refresh"></i>
+        <i class="fa fa-refresh"></i>
         New
       </div>
       <!-- Open generated wallet -->
       <div class="ui button green compact"
         @click.prevent="openWallet()">
-        <i class="icon unlock"></i>
+        <i class="fa fa-unlock"></i>
         Open
       </div>
       <!-- Switch network -->
       <div class="ui button basic compact"
         @click.prevent="switchNetwork()">
-        <i class="icon disk outline"></i>
+        <i class="fa fa-hdd-o"></i>
         Switch network
       </div>
       <div v-if="networkType.label === 'Test'" class="ui orange message">
@@ -47,16 +47,16 @@
         <!-- Keys warning -->
         <div class="ui negative message">
           <div class="header">
-            <i class="icon warning"></i>
+            <i class="fa fa-warning"></i>
             Save  your keys
           </div>
           <p>
-            <i class="icon chevron right"></i>
+            <i class="fa fa-chevron-right"></i>
             Be sure to store the passphrase in a secure place, 
             if you lose it your funds <b>cannot be recovered</b>.
           </p>
           <p>
-            <i class="icon chevron right"></i>
+            <i class="fa fa-chevron-right"></i>
             Do not share your passphrase with anyone, 
             your funds <b>will be stolen</b>.
           </p>
@@ -68,7 +68,7 @@
               <a
                 v-clipboard="wallet.address"
                 @success="copySuccess()">
-                <i class="icon copy"></i>
+                <i class="fa fa-copy"></i>
               </a>
               {{ wallet.address }}
             </div>
@@ -79,7 +79,7 @@
               <a
                 v-clipboard="wallet.passphrase"
                 @success="copySuccess()">
-                <i class="icon copy"></i>
+                <i class="fa fa-copy"></i>
               </a>
               {{ wallet.passphrase }}
             </div>

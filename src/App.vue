@@ -50,12 +50,36 @@ export default {
 body {
   background-color: rgba(218, 218, 218, 0.50);
 }
-.fa-icon {
-  width: auto;
-  height: 1em; /* or any other relative font sizes */
-
-  /* You would have to include the following two lines to make this work in Safari */
-  max-width: 100%;
-  max-height: 100%;
+.fa {
+  margin-right: 0.25em !important;
+}
+.ui.form .field.success label {
+    color: #308330;
+}
+.ui.form .field.success input {
+    background: #f4faf4 none repeat scroll 0 0;
+    border-color: #a3c293;
+    border-radius: 0.285714rem;
+    box-shadow: none;
+    color: #308330;
+}
+/* Success Placeholder */
+.ui.form .success ::-webkit-input-placeholder {
+    color: #5e9e5e;
+}
+.ui.form .success ::-ms-input-placeholder {
+    color: #5e9e5e;
+}
+.ui.form .success ::-moz-placeholder {
+    color: #5e9e5e;
+}
+.ui.form .success :focus::-webkit-input-placeholder {
+    color: #558e55;
+}
+.ui.form .success :focus::-ms-input-placeholder {
+    color: #558e55;
+}
+.ui.form .success :focus::-moz-placeholder {
+    color: #558e55;
 }
 </style>

@@ -9,7 +9,7 @@
             <a
               v-clipboard="this.wallet.address"
               @success="copySuccess()">
-              <i class="icon copy"></i>
+              <i class="fa fa-copy"></i>
             </a>
           </div>
           <div class="ui column middle aligned">
@@ -18,7 +18,7 @@
                 <div class="ui button teal compact"
                     :class="{ 'basic': !sendFormVisible }"
                     @click.prevent="toggleSendForm()">
-                  <i class="ui icon send outline"></i>
+                  <i class="fa fa-send-o"></i>
                   Send
                 </div>
               </div>
@@ -26,7 +26,7 @@
                 <div class="ui button blue compact basic"
                     :class="{ 'disabled': balance == null || !transactions }"
                     @click.prevent="refresh()">
-                  <i class="ui icon refresh" :class="{ 'loading': balance == null || !transactions }"></i>
+                  <i class="fa fa-refresh" :class="{ 'fa-spin': balance == null || !transactions }"></i>
                   Refresh
                 </div>
               </div>
@@ -34,14 +34,14 @@
             <div class="ui equal width grid center aligned">
               <div class="ui column">
                 <div class="ui medium header">
-                  <span v-if="balance == null"><i class="icon spinner loading"></i></span>
+                  <span v-if="balance == null"><i class="fa fa-spinner fa-spin"></i></span>
                   <span v-if="balance || balance === 0">{{ balance.toLocaleString() }}</span>
                   <div class="ui sub header">ARK</div>
                 </div>
               </div>
               <div class="ui column">
                 <div class="ui medium header">
-                  <span v-if="balance == null"><i class="icon spinner loading"></i></span>
+                  <span v-if="balance == null"><i class="fa fa-spinner fa-spin"></i></span>
                   <span v-if="balance || balance === 0">{{ balance.toLocaleString() }}</span>
                   <div class="ui sub header">€</div>
                 </div>
@@ -53,13 +53,13 @@
       <send v-if="sendFormVisible"></send>
       <!-- Transaction header -->
       <div class="ui header left aligned">
-        <i class="ui icon exchange"></i>
+        <i class="fa fa-exchange"></i>
         <div class="content">
           Transactions
         </div>
       </div>
       <div v-if="!transactions" class="ui segment center aligned">
-        <i class="icon spinner loading"></i>
+        <i class="fa fa-spinner fa-spin"></i>
         Loading transactions
       </div>
       <div v-if="transactions" class="ui cards">
