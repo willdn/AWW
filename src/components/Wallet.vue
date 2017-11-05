@@ -42,7 +42,7 @@
               <div class="ui column">
                 <div class="ui medium header">
                   <span v-if="balance == null"><i class="fa fa-spinner fa-spin"></i></span>
-                  <span v-if="balance || balance === 0">{{ balance.toLocaleString() }}</span>
+                  <span v-if="balance || balance === 0">{{ balanceEUR.toLocaleString() }}</span>
                   <div class="ui sub header">€</div>
                 </div>
               </div>
@@ -89,7 +89,7 @@ export default {
     return {
       timer: null,
       transactions: null,
-      arkValueUSD: 0,
+      arkValueEUR: 0,
       balance: null,
       claimAmounts: null,
       QRAddress: null
@@ -101,6 +101,9 @@ export default {
     },
     sendFormVisible () {
       return this.$store.getters.app.sendFormVisible
+    },
+    balanceEUR () {
+      return this.arkValueEUR * this.balance
     }
   },
   methods: {
@@ -129,14 +132,9 @@ export default {
       clipboardNotification()
     },
     getARKMarket () {
-      axios.get(`https://api.coinmarketcap.com/v1/ticker/ark`, {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      })
+      axios.get(`https://min-api.cryptocompare.com/data/price?fsym=ARK&tsyms=BTC,USD,EUR`)
         .then((res) => {
-          console.log(res)
+          this.arkValueEUR = res.data.EUR
         })
         .catch((err) => {
           if (err) console.log(err)
@@ -156,7 +154,7 @@ export default {
     // this.$store.dispatch('setLoadingState', true)
     this.getBalance()
     this.getTransactions()
-    // this.getARKMarket()
+    this.getARKMarket()
     this.timer = setInterval(() => {
       this.getBalance()
       this.getTransactions()
