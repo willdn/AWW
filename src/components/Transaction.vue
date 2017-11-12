@@ -81,7 +81,7 @@
 
 <script>
 import { clipboardNotification } from '../api/notification'
-// import moment from 'moment'
+import moment from 'moment'
 import * as utils from '../api/utils'
 
 export default {
@@ -97,11 +97,20 @@ export default {
       return this.$store.getters.wallet.address
     },
     date () {
-      return '03/11/2015'
+      // TODO: refactor this
+      const date = new Date(Date.UTC(2017, 2, 21, 13, 0, 0, 0))
+      const t = Math.floor(date.getTime() / 1000) * 1000
+      return moment(t + this.tx.timestamp * 1000).fromNow()
     },
     txWay () {
       if (this.tx.senderId === this.address) return 'withdrawal'
       if (this.tx.recipientId === this.address) return 'deposit'
+    },
+    txType () {
+      switch (this.tx.type) {
+        case 0 : return 'transaction'
+        case 3 : return 'vote'
+      }
     }
   },
   methods: {
