@@ -1,5 +1,6 @@
 import { addNotification } from './notification'
-import { getNetHash, getEndpoint } from '../api'
+import { getEndpoint } from '../api'
+import * as jark from 'jark'
 import axios from 'axios'
 import store from '../store'
 import arkjs from 'arkjs'
@@ -50,7 +51,7 @@ export const makeTransaction = (data) => {
  * @return {Promise<Response>} RPC response from sending transaction
  */
 export const sendTransaction = (data) => {
-  return getNetHash()
+  return jark.getNetHash()
     .then((nethash) => {
       const dataReq = JSON.stringify({ transactions: [data] })
       return axios.post(`${getEndpoint()}/peer/transactions`, dataReq, {
