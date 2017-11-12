@@ -142,7 +142,7 @@ export default {
     getTransactions () {
       jark.getTransactionsFromAddress(this.wallet.address)
         .then((response) => {
-          this.transactions = response
+          this.transactions = response.reverse()
         })
     },
     refresh () {

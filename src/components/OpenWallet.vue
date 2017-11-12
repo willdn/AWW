@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { getAddressFromPass } from '../api/account'
+import * as jark from 'jark'
 
 export default {
   name: 'openWallet',
@@ -37,9 +37,9 @@ export default {
   methods: {
     openWallet () {
       if (this.passphrase === '') return null
-      const address = getAddressFromPass(this.passphrase)
-      if (address) {
-        this.$store.dispatch('openWallet', address)
+      const keys = jark.getKeys(this.passphrase)
+      if (keys.address) {
+        this.$store.dispatch('openWallet', keys.address)
         this.$router.push({ name: 'Wallet' })
         this.passphrase = ''
       }
