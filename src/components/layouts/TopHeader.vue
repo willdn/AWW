@@ -12,6 +12,9 @@
           <i class="fa fa-hdd-o"></i>
           {{ networkType.label }}
         </a>
+        <a v-if="wallet.open" class="item" @click.prevent="closeWallet()">
+          <i class="fa fa-sign-out"></i>
+        </a>
       </div>
 
   </div>
@@ -26,6 +29,9 @@ export default {
     }
   },
   computed: {
+    wallet () {
+      return this.$store.getters.wallet
+    },
     networkType () {
       return this.$store.getters.networkType
     },
@@ -36,6 +42,10 @@ export default {
   methods: {
     switchNetwork () {
       this.$modal.show('confirmNetworkSwitchModal')
+    },
+    closeWallet () {
+      this.$store.dispatch('closeWallet')
+      this.$router.push({ name: 'Main' })
     }
   },
   mounted () {
