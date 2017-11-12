@@ -60,7 +60,7 @@
 
 <script>
 import ConfirmSendModal from './modals/ConfirmSendModal'
-import { validateTransaction, makeTransaction } from '../api/transaction'
+import { validateTransaction } from '../api/transaction'
 import { networkFee } from '../api'
 import * as jark from 'jark'
 import ark from 'arkjs'
@@ -102,9 +102,10 @@ export default {
         passphrase: this.passphrase
       }
       if (validateTransaction(data)) {
-        // Make transaction
-        let tx = makeTransaction({
-          transaction: this.transaction,
+        let tx = jark.createTransaction({
+          to: this.transaction.to,
+          amount: this.transaction.amount,
+          message: this.transaction.message,
           passphrase: this.passphrase
         })
         this.$modal.show('confirmSendModal', {
