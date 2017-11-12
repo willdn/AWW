@@ -1,5 +1,6 @@
 import networkType from '../api/networkType'
 import currencies from '../api/currencies'
+import * as jark from 'jark'
 
 const state = {
   network: networkType.TEST,
@@ -48,6 +49,7 @@ const mutations = {
     } else if (state.network === networkType.TEST) {
       state.network = networkType.MAIN
     }
+    jark.setNetwork(state.network.label)
   },
   toggleSendForm (state) {
     state.sendFormVisible = !state.sendFormVisible

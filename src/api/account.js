@@ -1,23 +1,7 @@
-import Mnemonic from 'bitcore-mnemonic'
 import arkjs from 'arkjs'
 import axios from 'axios'
 import store from '../store'
 import { getEndpoint } from '../api'
-
-/**
- * Create a new wallet
- * @return {Object} Private/public key pair
- */
-export const createWallet = () => {
-  let code = new Mnemonic()
-  arkjs.crypto.setNetworkVersion(store.getters.networkType.version)
-  const keys = arkjs.crypto.getKeys(code.toString())
-  const address = arkjs.crypto.getAddress(keys.publicKey)
-  return {
-    passphrase: code.toString(),
-    address: address
-  }
-}
 
 /**
  * Get address from passphrase

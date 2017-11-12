@@ -1,6 +1,6 @@
 <template>
   <div class="ui container center aligned">
-      <div v-if="networkType.label === 'Test'" class="ui orange message">
+      <div v-if="networkType.label === 'Dev'" class="ui orange message">
         Key generated for the <b>DEV network</b>
       </div>
       <!-- QR keys -->
@@ -90,7 +90,7 @@
 
 <script>
 import { clipboardNotification } from '../api/notification'
-import { createWallet } from '../api/account'
+import * as jark from 'jark'
 import QRCode from 'qrcode'
 
 export default {
@@ -109,7 +109,7 @@ export default {
   },
   methods: {
     newWallet () {
-      this.wallet = createWallet()
+      this.wallet = jark.getKeys()
       this.$nextTick(() => {
         QRCode.toDataURL(this.wallet.address, (err, url) => {
           if (err) console.log(err)
@@ -123,7 +123,7 @@ export default {
     },
     switchNetwork () {
       this.$store.dispatch('switchNetwork')
-      this.wallet = createWallet()
+      this.wallet = jark.getKeys()
     },
     openWallet () {
       this.$router.push({ name: 'OpenWallet' })

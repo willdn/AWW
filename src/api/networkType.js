@@ -4,7 +4,7 @@ const networksType = {
     version: 0x17
   },
   TEST: {
-    label: 'Test',
+    label: 'Dev',
     version: 0x1e
   }
 }

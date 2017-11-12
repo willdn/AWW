@@ -17,7 +17,7 @@ export const donationAddress = 'AePNZAAtWhLsGFLXtztGLAPnKm98VVC8tJ'
  */
 export const getEndpoint = () => {
   if (store.getters.networkType.label === 'Main') return 'https://node1.arknet.cloud'
-  if (store.getters.networkType.label === 'Test') return 'https://dev.arkcoin.net'
+  if (store.getters.networkType.label === 'Dev') return 'https://dev.arkcoin.net'
 }
 
 /**
