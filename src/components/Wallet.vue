@@ -87,11 +87,11 @@
 <script>
 import CurrencyModal from './modals/CurrencyModal'
 import { clipboardNotification } from '../api/notification'
-import { getBalance, getTransactions } from '../api/account'
 import Transaction from './Transaction'
 import Send from './Send'
 import QRCode from 'qrcode'
 import axios from 'axios'
+import * as jark from 'jark'
 
 export default {
   name: 'wallet',
@@ -134,13 +134,13 @@ export default {
       this.$store.dispatch('toggleSendForm')
     },
     getBalance () {
-      getBalance(this.wallet.address)
-        .then((response) => {
-          this.balance = response
+      jark.getBalance(this.wallet.address)
+        .then((balance) => {
+          this.balance = balance
         })
     },
     getTransactions () {
-      getTransactions(this.wallet.address)
+      jark.getTransactionsFromAddress(this.wallet.address)
         .then((response) => {
           this.transactions = response
         })

@@ -3,7 +3,7 @@ import currencies from '../api/currencies'
 import * as jark from 'jark'
 
 const state = {
-  network: networkType.TEST,
+  network: null,
   blockHeight: 0,
   sendFormVisible: false,
   loading: false,
@@ -20,6 +20,10 @@ const getters = {
 
 // actions
 const actions = {
+  setNetwork ({ commit, state }, network) {
+    commit('setNetwork', network)
+    commit('closeWallet')
+  },
   switchNetwork ({ commit, state }) {
     commit('switchNetwork')
     commit('closeWallet')
@@ -43,6 +47,10 @@ const actions = {
 
 // mutations
 const mutations = {
+  setNetwork (state, network) {
+    state.network = network
+    jark.setNetwork(network.label)
+  },
   switchNetwork (state) {
     if (state.network === networkType.MAIN) {
       state.network = networkType.TEST

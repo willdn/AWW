@@ -10,7 +10,8 @@
 </template>
 
 <script>
-import { getBlocksHeight } from './api'
+import networkType from './api/networkType'
+import * as jark from 'jark'
 import '../node_modules/semantic-ui-css/semantic.min.css'
 import '../node_modules/izitoast/dist/css/iziToast.min.css'
 import TopHeader from './components/layouts/TopHeader'
@@ -38,13 +39,14 @@ export default {
   },
   methods: {
     getDBHeight () {
-      getBlocksHeight()
+      jark.getBlocksHeight()
         .then((response) => {
           this.$store.dispatch('setDBHeight', response)
         })
     }
   },
   mounted () {
+    this.$store.dispatch('setNetwork', networkType.TEST)
     this.getDBHeight()
     setInterval(() => {
       this.getDBHeight()
