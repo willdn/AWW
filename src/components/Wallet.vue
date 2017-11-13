@@ -31,6 +31,16 @@
                 Refresh
               </div>
             </div>
+            <!-- Delegate -->
+            <!--
+            <div class="ui column">
+              <div class="ui button orange compact basic"
+                  @click.prevent="toggleDelegateVote()">
+                <i class="fa fa-thumbs-up"></i>
+                Vote
+              </div>
+            </div>
+            -->
             <!-- Currency modal -->
             <div class="ui column">
               <div class="ui button compact basic"
@@ -58,10 +68,13 @@
               </div>
             </div>
           </div>
+          <!-- Delegate -->
+          <div v-if="currentDelegate"><b>{{ currentDelegate.username }}</b></div>
         </div>
       </div>
     </div>
     <send v-if="sendFormVisible"></send>
+    <delegate-vote v-if="delegateVoteVisible"></delegate-vote>
     <!-- Transaction header -->
     <div class="ui header left aligned">
       <i class="fa fa-exchange"></i>
@@ -89,6 +102,7 @@ import CurrencyModal from './modals/CurrencyModal'
 import { clipboardNotification } from '../api/notification'
 import Transaction from './Transaction'
 import Send from './Send'
+import DelegateVote from './DelegateVote'
 import QRCode from 'qrcode'
 import axios from 'axios'
 import * as jark from 'jark'
@@ -98,7 +112,8 @@ export default {
   components: {
     CurrencyModal,
     Transaction,
-    Send
+    Send,
+    DelegateVote
   },
   data () {
     return {
@@ -107,7 +122,9 @@ export default {
       arkValueEUR: 0,
       balance: null,
       claimAmounts: null,
-      QRAddress: null
+      QRAddress: null,
+      delegateVoteVisible: false,
+      currentDelegate: null
     }
   },
   computed: {
@@ -132,6 +149,9 @@ export default {
   methods: {
     toggleSendForm () {
       this.$store.dispatch('toggleSendForm')
+    },
+    toggleDelegateVote () {
+      this.delegateVoteVisible = !this.delegateVoteVisible
     },
     getBalance () {
       jark.getBalance(this.wallet.address)
@@ -177,6 +197,12 @@ export default {
       this.$router.push({ name: 'OpenWallet' })
       return null
     }
+    // Get current delegate
+    jark.getDelegatesFromAddress(this.$store.getters.wallet.address)
+      .then((delegate) => {
+        // Only one delegate ?
+        this.currentDelegate = delegate[0]
+      })
     // this.$store.dispatch('setLoadingState', true)
     this.getBalance()
     this.getTransactions()

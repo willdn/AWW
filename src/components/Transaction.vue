@@ -25,7 +25,8 @@
         <!-- Amount -->
         <div class="ui column right aligned"
              :class="{ 'deposit-bg' : txWay === 'deposit',
-                       'withdrawal-bg' : txWay === 'withdrawal' }">
+                       'withdrawal-bg' : txWay === 'withdrawal',
+                       'vote-bg': txType === 'vote' }">
           {{ (tx.amount / 100000000).toLocaleString() }} ARK
         </div>
       </div>
@@ -156,5 +157,8 @@ export default {
 }
 .deposit-bg {
   color: rgba(33, 186, 69, 1);
+}
+.vote-bg {
+  color: rgba(33, 133, 208, 1);
 }
 </style>
