@@ -160,6 +160,12 @@ export default {
     }
   },
   mounted () {
+    this.transaction = {
+      to: null,
+      amount: 0,
+      message: null
+    }
+    this.passphrase = ''
   }
 }
 </script>
