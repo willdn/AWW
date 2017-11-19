@@ -200,8 +200,9 @@ export default {
     // Get current delegate
     jark.getDelegatesFromAddress(this.$store.getters.wallet.address)
       .then((delegate) => {
-        // Only one delegate ?
-        this.currentDelegate = delegate[0]
+        if (delegate) {
+          this.currentDelegate = delegate
+        }
       })
     // this.$store.dispatch('setLoadingState', true)
     this.getBalance()
