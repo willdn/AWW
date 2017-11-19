@@ -11,6 +11,13 @@
             </div>
           </a>
         </div>
+        <div class="ui segment basic">
+          <button class="ui button compact basic"
+            @click.prevent="closeModal()">
+            <i class="fa fa-remove"></i>
+            Close
+          </button>
+        </div>
       </div>
   </modal>
 </template>
@@ -28,6 +35,9 @@ export default {
   methods: {
     setCurrency (curr) {
       this.$store.dispatch('setFiatCurrency', curr)
+      this.$modal.hide('currencyModal')
+    },
+    closeModal () {
       this.$modal.hide('currencyModal')
     }
   },
