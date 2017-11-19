@@ -5,7 +5,18 @@
     @opened="opened"
     @before-open="beforeOpen"
     @closed="closed">
+    <div class="ui container center aligned send-code-modal">
+      <span v-if="!codeScanned">Waiting for QR code <i class="fa fa-spinner fa-spin"></i></span>
+      <span v-if="codeScanned">Code scanned</span>
       <video id="qr-preview"></video>
+      <div class="ui segment basic">
+        <button class="ui button red compact basic"
+          @click.prevent="closeModal()">
+          <i class="fa fa-remove"></i>
+          Close
+        </button>
+      </div>
+    </div>
   </modal>
 </template>
 
@@ -17,7 +28,8 @@ export default {
   data () {
     return {
       action: null,
-      scanner: null
+      scanner: null,
+      codeScanned: false
     }
   },
   methods: {
@@ -29,13 +41,18 @@ export default {
     closed (event) {
       this.stopCamera()
     },
+    closeModal () {
+      this.$modal.hide('scanCodeModal')
+    },
     startCamera () {
       this.scanner = new Instascan.Scanner({ video: document.getElementById('qr-preview') })
       this.scanner.addListener('scan', (content) => {
+        this.codeScanned = true
         this.$store.dispatch('codeScanned', {
           value: content,
           action: this.action
         })
+        this.codeScanned = false
         this.$modal.hide('scanCodeModal')
       })
       Instascan.Camera.getCameras().then((cameras) => {
@@ -61,4 +78,7 @@ export default {
 }
 </script>
 <style scoped>
+.send-code-modal {
+  padding: 1.5em;
+}
 </style>
