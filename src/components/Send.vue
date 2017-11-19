@@ -61,7 +61,6 @@
 <script>
 import ConfirmSendModal from './modals/ConfirmSendModal'
 import { validateTransaction } from '../api/transaction'
-import { networkFee } from '../api'
 import * as jark from 'jark'
 import ark from 'arkjs'
 
@@ -114,13 +113,17 @@ export default {
       }
     },
     sendMaxAmount () {
-      jark.getBalance(this.wallet.address)
-        .then((balance) => {
-          if (balance - networkFee < 0) {
-            this.transaction.amount = 0
-          } else {
-            this.transaction.amount = balance - networkFee
-          }
+      jark.getBlockchainFee()
+        .then((blockchainFee) => {
+          jark.getBalance(this.wallet.address)
+            .then((balance) => {
+              const fee = blockchainFee / Math.pow(8, 10)
+              if (balance - fee < 0) {
+                this.transaction.amount = 0
+              } else {
+                this.transaction.amount = balance - fee
+              }
+            })
         })
     },
     validateForm () {
