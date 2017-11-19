@@ -35,7 +35,12 @@ module.exports = {
         test: /\.(js|vue)$/,
         loader: 'eslint-loader',
         enforce: 'pre',
-        include: [resolve('src'), resolve('test')],
+        include: [
+          resolve('src'),
+          resolve('test'),
+          path.resolve(__dirname, 'node_modules', 'instascan', 'src', 'scanner.js'),
+          path.resolve(__dirname, 'node_modules', 'instascan', 'src', 'camera.js')
+        ],
         options: {
           formatter: require('eslint-friendly-formatter')
         }
