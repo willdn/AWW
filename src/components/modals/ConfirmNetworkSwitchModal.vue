@@ -45,7 +45,9 @@ export default {
     confirm () {
       this.$modal.hide('confirmNetworkSwitchModal')
       this.$store.dispatch('switchNetwork')
-      this.$router.push({ name: 'Main' })
+      if (this.$route.name === 'Wallet') {
+        this.$router.push({ name: 'Main' })
+      }
     },
     cancel () {
       this.$modal.hide('confirmNetworkSwitchModal')
