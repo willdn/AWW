@@ -34,8 +34,13 @@
         </div>
         <div class="field">
           <label>Passphrase</label>
-          <input v-model="passphrase" type="text" placeholder="Enter passphrase"
-                 :disabled="transactionSending">
+            <div class="ui action input">
+              <input v-model="passphrase" class="input" type="password" placeholder="Enter passphrase"
+                    :disabled="transactionSending">
+              <button @click.prevent="openCodeScanner()" class="ui basic orange button">
+                <i class="fa fa-qrcode"></i>
+              </button>
+            </div>
         </div>
         <button class="ui button green"
           :class="{ 'disabled': transactionSending }"
@@ -82,6 +87,13 @@ export default {
       transaction: defaultTransaction
     }
   },
+  watch: {
+    qrScanner (scanner) {
+      if (scanner.action === 'SignTransaction') {
+        this.passphrase = scanner.payload
+      }
+    }
+  },
   computed: {
     wallet () {
       return this.$store.getters.wallet
@@ -91,9 +103,17 @@ export default {
     },
     transactionSending () {
       return this.$store.getters.app.transactionSending
+    },
+    qrScanner () {
+      return this.$store.getters.qrScanner
     }
   },
   methods: {
+    openCodeScanner () {
+      this.$modal.show('scanCodeModal', {
+        action: 'SignTransaction'
+      })
+    },
     send () {
       // Validation
       const data = {

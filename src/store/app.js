@@ -8,14 +8,19 @@ const state = {
   sendFormVisible: false,
   loading: false,
   transactionSending: false,
-  fiatCurrency: currencies.EUR
+  fiatCurrency: currencies.EUR,
+  qrScanner: {
+    payload: null,
+    action: ''
+  }
 }
 
 // getters
 const getters = {
   app: state => state,
   networkType: state => state.network,
-  blockHeight: state => state.blockHeight
+  blockHeight: state => state.blockHeight,
+  qrScanner: state => state.qrScanner
 }
 
 // actions
@@ -42,6 +47,9 @@ const actions = {
   },
   setFiatCurrency ({ commit, state }, currency) {
     commit('setFiatCurrency', currency)
+  },
+  codeScanned ({ commit, state }, data) {
+    commit('codeScanned', data)
   }
 }
 
@@ -73,6 +81,12 @@ const mutations = {
   },
   setFiatCurrency (state, currency) {
     state.fiatCurrency = currency
+  },
+  codeScanned (state, data) {
+    state.qrScanner = {
+      payload: data.value,
+      action: data.action
+    }
   }
 }
 

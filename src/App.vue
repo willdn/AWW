@@ -5,6 +5,7 @@
     <bottom-footer></bottom-footer>
     <!-- Modals -->
     <confirm-network-switch-modal></confirm-network-switch-modal>
+    <scan-code-modal></scan-code-modal>
     <donation-modal></donation-modal>
   </div>
 </template>
@@ -16,6 +17,7 @@ import '../node_modules/semantic-ui-css/semantic.min.css'
 import '../node_modules/izitoast/dist/css/iziToast.min.css'
 import TopHeader from './components/layouts/TopHeader'
 import ConfirmNetworkSwitchModal from './components/modals/ConfirmNetworkSwitchModal'
+import ScanCodeModal from './components/modals/ScanCodeModal'
 import DonationModal from './components/modals/DonationModal'
 import BottomFooter from './components/layouts/BottomFooter'
 
@@ -24,6 +26,7 @@ export default {
   components: {
     TopHeader,
     ConfirmNetworkSwitchModal,
+    ScanCodeModal,
     BottomFooter,
     DonationModal
   },
