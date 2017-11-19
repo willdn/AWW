@@ -115,8 +115,12 @@ export default {
     },
     sendMaxAmount () {
       jark.getBalance(this.wallet.address)
-        .then((response) => {
-          this.transaction.amount = response - networkFee
+        .then((balance) => {
+          if (balance - networkFee < 0) {
+            this.transaction.amount = 0
+          } else {
+            this.transaction.amount = balance - networkFee
+          }
         })
     },
     validateForm () {
