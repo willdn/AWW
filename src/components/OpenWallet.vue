@@ -56,7 +56,6 @@ export default {
   methods: {
     openWallet () {
       if (this.passphrase === '') return null
-      console.log('Opening wallet')
       const keys = jark.getKeys(this.passphrase)
       if (keys.address) {
         this.$store.dispatch('openWallet', keys.address)
