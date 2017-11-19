@@ -16,6 +16,7 @@
   "dependencies": {
     "arkjs": "^0.2.1",
     "axios": "^0.17.0",
+    "instascan": "^1.0.0",
     "izitoast": "^1.1.5",
     "jark": "^1.1.2",
     "moment": "^2.19.1",
