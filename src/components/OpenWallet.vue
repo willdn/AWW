@@ -8,7 +8,7 @@
           <div class="field">
             <div class="ui action input">
               <input v-model="passphrase" class="input" type="password" placeholder="Enter passphrase">
-              <button @click.prevent="openScannerModal()" class="ui basic orange button">
+              <button @click.prevent="openScannerModal()" class="ui basic button">
                 <i class="fa fa-qrcode"></i>
               </button>
             </div>
@@ -26,7 +26,6 @@
           </button>
         </form>
       </div>
-      <video id="preview"></video>
     </div>
   </div>
 </template>
@@ -46,6 +45,7 @@ export default {
       if (scanner.action === 'OpenWallet') {
         this.passphrase = scanner.payload
         this.openWallet()
+        this.$store.dispatch('clearCodeScanned')
       }
     }
   },

@@ -11,9 +11,12 @@
       <form class="ui form">
         <div class="field" :class="{ 'success': addressValid }">
           <label>Address</label>
-          <div class="ui input">
-            <input v-model="transaction.to" type="text" placeholder="Enter recipient address"
-                   :disabled="transactionSending">
+          <div class="ui action input">
+            <input v-model="transaction.to" class="input" type="text" placeholder="Enter recipient address"
+                  :disabled="transactionSending">
+            <button @click.prevent="openCodeScanner('FillRecipientAddress')" class="ui basic button">
+              <i class="fa fa-qrcode"></i>
+            </button>
           </div>
         </div>
         <div class="field">
@@ -37,7 +40,7 @@
             <div class="ui action input">
               <input v-model="passphrase" class="input" type="password" placeholder="Enter passphrase"
                     :disabled="transactionSending">
-              <button @click.prevent="openCodeScanner()" class="ui basic orange button">
+              <button @click.prevent="openCodeScanner('SignTransaction')" class="ui basic button">
                 <i class="fa fa-qrcode"></i>
               </button>
             </div>
@@ -92,6 +95,10 @@ export default {
       if (scanner.action === 'SignTransaction') {
         this.passphrase = scanner.payload
       }
+      if (scanner.action === 'FillRecipientAddress') {
+        this.transaction.to = scanner.payload
+      }
+      this.$store.dispatch('clearCodeScanned')
     }
   },
   computed: {
@@ -109,9 +116,9 @@ export default {
     }
   },
   methods: {
-    openCodeScanner () {
+    openCodeScanner (action) {
       this.$modal.show('scanCodeModal', {
-        action: 'SignTransaction'
+        action: action
       })
     },
     send () {

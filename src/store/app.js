@@ -2,6 +2,11 @@ import networkType from '../api/networkType'
 import currencies from '../api/currencies'
 import * as jark from 'jark'
 
+const defaultScanner = {
+  payload: null,
+  action: ''
+}
+
 const state = {
   network: null,
   blockHeight: 0,
@@ -9,10 +14,7 @@ const state = {
   loading: false,
   transactionSending: false,
   fiatCurrency: currencies.EUR,
-  qrScanner: {
-    payload: null,
-    action: ''
-  }
+  qrScanner: defaultScanner
 }
 
 // getters
@@ -50,6 +52,9 @@ const actions = {
   },
   codeScanned ({ commit, state }, data) {
     commit('codeScanned', data)
+  },
+  clearCodeScanned ({ commit, state }) {
+    commit('clearCodeScanned')
   }
 }
 
@@ -87,6 +92,9 @@ const mutations = {
       payload: data.value,
       action: data.action
     }
+  },
+  clearCodeScanned (state) {
+    state.qrScanner = defaultScanner
   }
 }
 

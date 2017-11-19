@@ -5,7 +5,7 @@
     @opened="opened"
     @before-open="beforeOpen"
     @closed="closed">
-      <video id="preview"></video>
+      <video id="qr-preview"></video>
   </modal>
 </template>
 
@@ -30,7 +30,7 @@ export default {
       this.stopCamera()
     },
     startCamera () {
-      this.scanner = new Instascan.Scanner({ video: document.getElementById('preview') })
+      this.scanner = new Instascan.Scanner({ video: document.getElementById('qr-preview') })
       this.scanner.addListener('scan', (content) => {
         this.$store.dispatch('codeScanned', {
           value: content,
