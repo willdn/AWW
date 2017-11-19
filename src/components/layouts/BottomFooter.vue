@@ -8,7 +8,7 @@
         <img class="ui spaced image" :src="require('../../assets/img/ark-icon.png')">
         Ark
       </a>
-      <a @click.prevent="donationModal()" class="column footer-link">
+      <a href="#" @click.prevent="donationModal()" class="column footer-link">
         <b>Donation</b>: {{ donationAddress }}
       </a>
     </div>
