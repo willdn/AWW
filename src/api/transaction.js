@@ -1,4 +1,4 @@
-import { addNotification } from './notification'
+import { errorNotification, addNotification } from './notification'
 import { getEndpoint } from '../api'
 import * as jark from 'jark'
 import axios from 'axios'
@@ -13,16 +13,14 @@ import arkjs from 'arkjs'
 export const validateTransaction = (data) => {
   let valid = true
   if (data.passphrase == null || data.passphrase === '') {
-    addNotification({
-      message: `Passphrase is not valid`,
-      color: 'red'
+    errorNotification({
+      message: `Passphrase is not valid`
     })
     valid = false
   }
   if (!arkjs.crypto.validateAddress(data.transaction.to)) {
-    addNotification({
-      message: `Address is not valid`,
-      color: 'red'
+    errorNotification({
+      message: `Address is not valid`
     })
     valid = false
   }
@@ -57,9 +55,8 @@ export const sendTransaction = (data) => {
       })
       .catch((err) => {
         store.dispatch('setTransactionSending', false)
-        addNotification({
-          message: err,
-          color: 'red'
+        errorNotification({
+          message: err
         })
         if (err) return err
       })
