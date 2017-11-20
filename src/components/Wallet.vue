@@ -31,8 +31,8 @@
                 Vote
               </div>
               <!-- Delegate -->
-              <span v-if="delegate">
-                <b>{{ delegate.username }}</b> (#{{ delegate.rate }})
+              <span v-if="currentDelegate">
+                <b>{{ currentDelegate.username }}</b> (#{{ currentDelegate.rate }})
               </span>
             </div>
             <div class="ui column right aligned">
@@ -123,8 +123,7 @@ export default {
       arkValueEUR: 0,
       balance: null,
       claimAmounts: null,
-      QRAddress: null,
-      currentDelegate: null
+      QRAddress: null
     }
   },
   computed: {
@@ -143,12 +142,8 @@ export default {
     balanceEUR () {
       return this.arkValueEUR * this.balance
     },
-    delegate () {
-      if (this.currentDelegate != null &&
-            this.currentDelegate.length === 1) {
-        return this.currentDelegate[0]
-      }
-      return null
+    currentDelegate () {
+      return this.wallet.delegate
     }
   },
   watch: {
@@ -212,8 +207,8 @@ export default {
     // Get current delegate
     jark.getDelegatesFromAddress(this.$store.getters.wallet.address)
       .then((delegate) => {
-        if (delegate) {
-          this.currentDelegate = delegate
+        if (delegate && delegate.length > 0) {
+          this.$store.dispatch('setDelegate', delegate[0])
         }
       })
     // this.$store.dispatch('setLoadingState', true)
