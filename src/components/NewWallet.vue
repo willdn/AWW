@@ -123,7 +123,7 @@ export default {
     },
     switchNetwork () {
       this.$store.dispatch('switchNetwork')
-      this.wallet = jark.getKeys()
+      this.newWallet()
     },
     openWallet () {
       this.$router.push({ name: 'OpenWallet' })
