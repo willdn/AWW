@@ -11,6 +11,7 @@ const state = {
   network: null,
   blockHeight: 0,
   sendFormVisible: false,
+  voteFormVisible: false,
   loading: false,
   transactionSending: false,
   fiatCurrency: currencies.EUR,
@@ -35,8 +36,11 @@ const actions = {
     commit('switchNetwork')
     commit('closeWallet')
   },
-  toggleSendForm ({ commit, state }) {
-    commit('toggleSendForm')
+  toggleVoteForm ({ commit, state }, setState = null) {
+    commit('toggleVoteForm', setState)
+  },
+  toggleSendForm ({ commit, state }, setState = null) {
+    commit('toggleSendForm', setState)
   },
   setDBHeight ({ commit, state }, blockHeight) {
     commit('setDBHeight', blockHeight)
@@ -72,7 +76,18 @@ const mutations = {
     }
     jark.setNetwork(state.network.label)
   },
-  toggleSendForm (state) {
+  toggleVoteForm (state, setState) {
+    if (setState != null) {
+      state.voteFormVisible = setState
+      return
+    }
+    state.voteFormVisible = !state.voteFormVisible
+  },
+  toggleSendForm (state, setState) {
+    if (setState != null) {
+      state.sendFormVisible = setState
+      return
+    }
     state.sendFormVisible = !state.sendFormVisible
   },
   setDBHeight (state, blockHeight) {

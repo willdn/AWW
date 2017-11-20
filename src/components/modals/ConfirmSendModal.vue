@@ -8,8 +8,10 @@
            v-if="transaction">
         <div class="ui header">
           Confirm transaction ?
+          <div v-if="transaction.type === 3" class="sub header">
+            Vote transaction
+          </div>
         </div>
-        
         <div class="ui column grid container left aligned">
           <div class="two column row">
             <div class="column six wide">To</div>

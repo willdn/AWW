@@ -61,13 +61,10 @@
         </button>
       </form>
     </div>
-    <!-- Confirm transaction modal -->
-    <confirm-send-modal></confirm-send-modal>
   </div>
 </template>
 
 <script>
-import ConfirmSendModal from './modals/ConfirmSendModal'
 import { validateTransaction } from '../api/transaction'
 import * as jark from 'jark'
 import ark from 'arkjs'
@@ -80,9 +77,6 @@ const defaultTransaction = {
 
 export default {
   name: 'send',
-  components: {
-    ConfirmSendModal
-  },
   data () {
     return {
       sending: false,
