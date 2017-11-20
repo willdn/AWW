@@ -1,6 +1,6 @@
 # ARK Web Wallet
 
-ARK Web Wallet (AWW) is an online wallet for the [ARK](https://ark.io) blockchain using Vue.js
+ARK Web Wallet ([AWW](https://willdn.github.io/AWW)) is an online wallet for the [ARK](https://ark.io) blockchain using Vue.js.
 
 ## Features
 
@@ -8,7 +8,8 @@ ARK Web Wallet (AWW) is an online wallet for the [ARK](https://ark.io) blockchai
 - Check ARK balances
 - Send transaction
 - View transactions
-- (WIP) Vote for delegate
+- Vote for delegate
+- QR scan
 - (WIP) Register as delegate
 
 
@@ -21,7 +22,7 @@ cd AWW/
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
+# serve with hot reload at https://localhost:8080
 npm run dev
 
 # build for production with minification

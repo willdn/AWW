@@ -4,7 +4,7 @@
       <div class="ui equal width stackable grid">
         <div class="ui column center aligned">
           <img class="ui centered image" :src="QRAddress" />
-          {{ wallet.address }}
+          {{ wallet.address }}<br />
           <a
             v-clipboard="this.wallet.address"
             @success="copySuccess()">
@@ -30,6 +30,10 @@
                 <i class="fa fa-thumbs-up"></i>
                 Vote
               </div>
+              <!-- Delegate -->
+              <span v-if="currentDelegate">
+                <b>{{ currentDelegate.username }}</b> (#{{ currentDelegate.rate }})
+              </span>
             </div>
             <div class="ui column right aligned">
               <!-- Currency select -->
@@ -58,13 +62,11 @@
             <div class="ui column">
               <div class="ui medium header">
                 <span v-if="balance == null"><i class="fa fa-spinner fa-spin"></i></span>
-                <span v-if="balance || balance === 0">{{ balanceEUR.toLocaleString() }}</span>
+                <span v-if="balance || balance === 0">{{ balanceFiat.toLocaleString() }}</span>
                 <div class="ui sub header">{{ fiatCurrency.label }}</div>
               </div>
             </div>
           </div>
-          <!-- Delegate -->
-          <div v-if="currentDelegate"><b>{{ currentDelegate.username }}</b></div>
         </div>
       </div>
     </div>
@@ -118,11 +120,10 @@ export default {
     return {
       timer: null,
       transactions: null,
-      arkValueEUR: 0,
+      arkFiatValue: 0,
       balance: null,
       claimAmounts: null,
-      QRAddress: null,
-      currentDelegate: null
+      QRAddress: null
     }
   },
   computed: {
@@ -138,8 +139,11 @@ export default {
     fiatCurrency () {
       return this.$store.getters.app.fiatCurrency
     },
-    balanceEUR () {
-      return this.arkValueEUR * this.balance
+    balanceFiat () {
+      return this.arkFiatValue * this.balance
+    },
+    currentDelegate () {
+      return this.wallet.delegate
     }
   },
   watch: {
@@ -183,7 +187,7 @@ export default {
     getARKMarket () {
       axios.get(`https://min-api.cryptocompare.com/data/price?fsym=ARK&tsyms=${this.fiatCurrency.id}`)
         .then((res) => {
-          this.arkValueEUR = res.data[this.fiatCurrency.id]
+          this.arkFiatValue = res.data[this.fiatCurrency.id]
         })
         .catch((err) => {
           if (err) console.log(err)
@@ -203,8 +207,8 @@ export default {
     // Get current delegate
     jark.getDelegatesFromAddress(this.$store.getters.wallet.address)
       .then((delegate) => {
-        if (delegate) {
-          this.currentDelegate = delegate
+        if (delegate && delegate.length > 0) {
+          this.$store.dispatch('setDelegate', delegate[0])
         }
       })
     // this.$store.dispatch('setLoadingState', true)
@@ -215,7 +219,7 @@ export default {
       this.getBalance()
       this.getTransactions()
       // this.getARKMarket()
-    }, 15000)
+    }, 10000)
     this.$nextTick(() => {
       QRCode.toDataURL(this.$store.getters.wallet.address, (err, url) => {
         if (err) console.log(err)

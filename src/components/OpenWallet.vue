@@ -59,7 +59,10 @@ export default {
       if (this.passphrase === '') return null
       const keys = jark.getKeys(this.passphrase)
       if (keys.address) {
-        this.$store.dispatch('openWallet', keys.address)
+        this.$store.dispatch('openWallet', {
+          address: keys.address,
+          publicKey: keys.publicKey
+        })
         this.$router.push({ name: 'Wallet' })
         this.passphrase = ''
       }
