@@ -4,7 +4,7 @@
       <div class="ui equal width stackable grid">
         <div class="ui column center aligned">
           <img class="ui centered image" :src="QRAddress" />
-          {{ wallet.address }}
+          {{ wallet.address }}<br />
           <a
             v-clipboard="this.wallet.address"
             @success="copySuccess()">
@@ -30,6 +30,10 @@
                 <i class="fa fa-thumbs-up"></i>
                 Vote
               </div>
+              <!-- Delegate -->
+              <span v-if="delegate">
+                <b>{{ delegate.username }}</b> (#{{ delegate.rate }})
+              </span>
             </div>
             <div class="ui column right aligned">
               <!-- Currency select -->
@@ -63,8 +67,6 @@
               </div>
             </div>
           </div>
-          <!-- Delegate -->
-          <div v-if="currentDelegate"><b>{{ currentDelegate.username }}</b></div>
         </div>
       </div>
     </div>
@@ -140,6 +142,13 @@ export default {
     },
     balanceEUR () {
       return this.arkValueEUR * this.balance
+    },
+    delegate () {
+      if (this.currentDelegate != null &&
+            this.currentDelegate.length === 1) {
+        return this.currentDelegate[0]
+      }
+      return null
     }
   },
   watch: {
@@ -215,7 +224,7 @@ export default {
       this.getBalance()
       this.getTransactions()
       // this.getARKMarket()
-    }, 15000)
+    }, 10000)
     this.$nextTick(() => {
       QRCode.toDataURL(this.$store.getters.wallet.address, (err, url) => {
         if (err) console.log(err)
