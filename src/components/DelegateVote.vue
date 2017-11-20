@@ -8,6 +8,10 @@
       </div>
     </div>
     <div class="ui segment">
+      <!-- Account has already delegate -->
+      <div v-if="currentDelegate" class="ui warning message">
+        You are already voting for <b>{{ currentDelegate.username }}</b> as delegate
+      </div>
       <form class="ui form">
         <div v-if="delegates.length > 0" class="field">
           <label>Forging delegates</label>
@@ -74,6 +78,9 @@ export default {
     },
     qrScanner () {
       return this.$store.getters.qrScanner
+    },
+    currentDelegate () {
+      return this.wallet.delegate
     }
   },
   methods: {

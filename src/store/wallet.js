@@ -19,6 +19,8 @@ const actions = {
   },
   closeWallet ({ commit, state }) {
     commit('closeWallet')
+    commit('toggleVoteForm', false)
+    commit('toggleSendForm', false)
   },
   setDelegate ({commit, state}, delegate) {
     commit('setDelegate', delegate)
@@ -34,7 +36,9 @@ const mutations = {
   },
   closeWallet (state) {
     state.open = false
-    state.address = state.publicKey = null
+    state.address = null
+    state.publicKey = null
+    state.delegate = null
   },
   setDelegate (state, delegate) {
     state.delegate = delegate
