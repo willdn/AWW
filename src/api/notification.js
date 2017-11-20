@@ -15,6 +15,17 @@ export const addNotification = (options) => {
 }
 
 /**
+ * Create an error notification
+ * @param {string} - Notification's message
+ */
+export const errorNotification = (message) => {
+  addNotification({
+    color: 'red',
+    message: `<b>${message}</b>`
+  })
+}
+
+/**
  * Create a clipboard success notification
  * @param {string} - Notification's message
  */

@@ -32,7 +32,6 @@
               </div>
             </div>
             <!-- Delegate -->
-            <!--
             <div class="ui column">
               <div class="ui button orange compact basic"
                   @click.prevent="toggleDelegateVote()">
@@ -40,7 +39,6 @@
                 Vote
               </div>
             </div>
-            -->
             <!-- Currency modal -->
             <div class="ui column">
               <div class="ui button compact basic"
