@@ -22,29 +22,26 @@
                 Send
               </div>
             </div>
-            <!-- Refresh -->
-            <div class="ui column">
-              <div class="ui button blue compact basic"
-                  :class="{ 'disabled': balance == null || !transactions }"
-                  @click.prevent="refresh()">
-                <i class="fa fa-refresh" :class="{ 'fa-spin': balance == null || !transactions }"></i>
-                Refresh
-              </div>
-            </div>
             <!-- Delegate -->
             <div class="ui column">
-              <div class="ui button orange compact basic"
+              <div class="ui button orange compact"
+                  :class="{ 'basic': !voteFormVisible }"
                   @click.prevent="toggleDelegateVote()">
                 <i class="fa fa-thumbs-up"></i>
                 Vote
               </div>
             </div>
-            <!-- Currency modal -->
-            <div class="ui column">
+            <div class="ui column right aligned">
+              <!-- Currency select -->
               <div class="ui button compact basic"
                   @click.prevent="currencyModal()">
                 <i class="fa fa-money"></i>
-                Currency
+              </div>
+              <!-- Refresh button -->
+              <div class="ui button blue compact basic"
+                  :class="{ 'disabled': balance == null || !transactions }"
+                  @click.prevent="refresh()">
+                <i class="fa fa-refresh" :class="{ 'fa-spin': balance == null || !transactions }"></i>
               </div>
             </div>
           </div>
@@ -72,7 +69,7 @@
       </div>
     </div>
     <send v-if="sendFormVisible"></send>
-    <delegate-vote v-if="delegateVoteVisible"></delegate-vote>
+    <delegate-vote v-if="voteFormVisible"></delegate-vote>
     <!-- Transaction header -->
     <div class="ui header left aligned">
       <i class="fa fa-exchange"></i>
@@ -90,13 +87,16 @@
     <div v-if="transactions && transactions.length === 0" class="ui segment center aligned">
       No transactions
     </div>
-    <!-- Modals -->
+    <!-- Currency select modal -->
     <currency-modal></currency-modal>
+    <!-- Confirm transaction modal -->
+    <confirm-send-modal></confirm-send-modal>
   </div>
 </template>
 
 <script>
 import CurrencyModal from './modals/CurrencyModal'
+import ConfirmSendModal from './modals/ConfirmSendModal'
 import { clipboardNotification } from '../api/notification'
 import Transaction from './Transaction'
 import Send from './Send'
@@ -109,6 +109,7 @@ export default {
   name: 'wallet',
   components: {
     CurrencyModal,
+    ConfirmSendModal,
     Transaction,
     Send,
     DelegateVote
@@ -121,7 +122,6 @@ export default {
       balance: null,
       claimAmounts: null,
       QRAddress: null,
-      delegateVoteVisible: false,
       currentDelegate: null
     }
   },
@@ -131,6 +131,9 @@ export default {
     },
     sendFormVisible () {
       return this.$store.getters.app.sendFormVisible
+    },
+    voteFormVisible () {
+      return this.$store.getters.app.voteFormVisible
     },
     fiatCurrency () {
       return this.$store.getters.app.fiatCurrency
@@ -147,9 +150,11 @@ export default {
   methods: {
     toggleSendForm () {
       this.$store.dispatch('toggleSendForm')
+      this.$store.dispatch('toggleVoteForm', false)
     },
     toggleDelegateVote () {
-      this.delegateVoteVisible = !this.delegateVoteVisible
+      this.$store.dispatch('toggleVoteForm')
+      this.$store.dispatch('toggleSendForm', false)
     },
     getBalance () {
       jark.getBalance(this.wallet.address)

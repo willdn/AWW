@@ -83,7 +83,7 @@ export default {
       jark.getDelegateByUsername(this.delegateName)
         .then((delegate) => {
           if (delegate) {
-            this.createVoteTransaction()
+            this.createVoteTransaction(delegate.publicKey)
           } else {
             return errorNotification('Delegate not found')
           }
@@ -96,6 +96,9 @@ export default {
         secondPassphrase: null
       })
       console.log(tx)
+      this.$modal.show('confirmSendModal', {
+        transaction: tx
+      })
     },
     openCodeScanner (action) {
       this.$modal.show('scanCodeModal', {
