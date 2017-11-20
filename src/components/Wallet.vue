@@ -62,7 +62,7 @@
             <div class="ui column">
               <div class="ui medium header">
                 <span v-if="balance == null"><i class="fa fa-spinner fa-spin"></i></span>
-                <span v-if="balance || balance === 0">{{ balanceEUR.toLocaleString() }}</span>
+                <span v-if="balance || balance === 0">{{ balanceFiat.toLocaleString() }}</span>
                 <div class="ui sub header">{{ fiatCurrency.label }}</div>
               </div>
             </div>
@@ -120,7 +120,7 @@ export default {
     return {
       timer: null,
       transactions: null,
-      arkValueEUR: 0,
+      arkFiatValue: 0,
       balance: null,
       claimAmounts: null,
       QRAddress: null
@@ -139,8 +139,8 @@ export default {
     fiatCurrency () {
       return this.$store.getters.app.fiatCurrency
     },
-    balanceEUR () {
-      return this.arkValueEUR * this.balance
+    balanceFiat () {
+      return this.arkFiatValue * this.balance
     },
     currentDelegate () {
       return this.wallet.delegate
@@ -187,7 +187,7 @@ export default {
     getARKMarket () {
       axios.get(`https://min-api.cryptocompare.com/data/price?fsym=ARK&tsyms=${this.fiatCurrency.id}`)
         .then((res) => {
-          this.arkValueEUR = res.data[this.fiatCurrency.id]
+          this.arkFiatValue = res.data[this.fiatCurrency.id]
         })
         .catch((err) => {
           if (err) console.log(err)
