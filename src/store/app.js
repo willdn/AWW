@@ -1,4 +1,5 @@
 import networkType from '../api/networkType'
+import { successNotification } from '../api/notification'
 import currencies from '../api/currencies'
 import * as jark from 'jark'
 
@@ -75,6 +76,7 @@ const mutations = {
       state.network = networkType.MAIN
     }
     jark.setNetwork(state.network.label)
+    successNotification(`Network switched to <b>${state.network.label}</b>`)
   },
   toggleVoteForm (state, setState) {
     if (setState != null) {
