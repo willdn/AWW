@@ -9,6 +9,10 @@ const currencies = {
   USD: {
     id: 'USD',
     label: '$'
+  },
+  BTC: {
+    id: 'BTC',
+    label: '₿'
   }
 }
 
