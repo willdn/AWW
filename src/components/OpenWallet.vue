@@ -4,32 +4,59 @@
       <!-- Ark logo -->
       <img class="ui centered image tiny" :src="require('../assets/img/ark-logo.png')">
       <div class="ui segment center aligned">
-        <form class="ui form">
-          <div class="field">
-            <div class="ui action input">
-              <input v-model="passphrase" class="input" type="password" placeholder="Enter passphrase">
-              <button @click.prevent="openScannerModal()" class="ui basic button">
-                <i class="fa fa-qrcode"></i>
-              </button>
+        <!-- Login options -->
+        <div class="ui four stackable cards">
+          <a class="card" @click.prevent="passphrasePanelVisible = !passphrasePanelVisible"
+              :class="{ 'green' : passphrasePanelVisible }">
+            <div class="content">
+              <i class="fa fa-keyboard-o"></i>
+              Passphrase
             </div>
-          </div>
-          <!-- Open -->
-          <button @click.prevent="openWallet()" class="ui button green"
-                  :class="{ 'disabled': passphrase === '' }">
-            <i class="fa fa-unlock"></i>
-            Open
-          </button>
-          <!-- Hardware -->
-          <button @click.prevent="openHardware()" class="ui button teal">
-            <i class="fa fa-usb"></i>
-            Ledger
-          </button>
-          <!-- New -->
-          <button @click.prevent="newWallet()" class="ui button teal basic">
-            <i class="fa fa-plus"></i>
-            New
-          </button>
-        </form>
+          </a>
+          <a class="card" @click.prevent="openHardware()">
+            <div class="content">
+              <i class="fa fa-usb"></i>
+              Ledger
+            </div>
+          </a>
+          <a class="card" @click.prevent="openScannerModal()">
+            <div class="content">
+              <i class="fa fa-qrcode"></i>
+              Scan QR
+            </div>
+          </a>
+          <a class="card" @click.prevent="newWallet()">
+            <div class="content">
+              <i class="fa fa-plus"></i>
+              New
+            </div>
+          </a>
+        </div>
+        <!-- Passphrase input panel -->
+        <div v-if="passphrasePanelVisible" class="ui segment basic">
+          <div class="ui small header">Enter your passphrase</div>
+          <form class="ui form">
+            <div class="field">
+              <div class="ui action input">
+                <input v-model="passphrase" class="input" type="password" placeholder="Passphrase">
+                <button @click.prevent="openScannerModal()" class="ui basic button">
+                  <i class="fa fa-qrcode"></i>
+                </button>
+              </div>
+            </div>
+            <!-- Open -->
+            <button @click.prevent="openWallet()" class="ui button green"
+                    :class="{ 'disabled': passphrase === '' }">
+              <i class="fa fa-unlock"></i>
+              Open
+            </button>
+            <!-- Close -->
+            <button @click.prevent="passphrasePanelVisible = false" class="ui button basic">
+              <i class="fa fa-remove"></i>
+              Close
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -42,7 +69,8 @@ export default {
   name: 'openWallet',
   data () {
     return {
-      passphrase: ''
+      passphrase: '',
+      passphrasePanelVisible: false
     }
   },
   watch: {
@@ -93,6 +121,11 @@ export default {
 <style scoped>
 .ui.segment {
   width:100%;
+}
+.card {
+  margin-top: 0.35rem;
+  margin-bottom: 0.15rem;
+  color: rgba(0,0,0,.87);
 }
 .container{
   display: flex; 
