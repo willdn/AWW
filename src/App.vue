@@ -49,7 +49,7 @@ export default {
     }
   },
   mounted () {
-    this.$store.dispatch('setNetwork', networkType.TEST)
+    this.$store.dispatch('setNetwork', networkType.MAIN)
     this.getDBHeight()
     setInterval(() => {
       this.getDBHeight()
