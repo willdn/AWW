@@ -19,6 +19,11 @@
             <i class="fa fa-unlock"></i>
             Open
           </button>
+          <!-- Hardware -->
+          <button @click.prevent="openHardware()" class="ui button teal">
+            <i class="fa fa-usb"></i>
+            Ledger
+          </button>
           <!-- New -->
           <button @click.prevent="newWallet()" class="ui button teal basic">
             <i class="fa fa-plus"></i>
@@ -66,6 +71,9 @@ export default {
         this.$router.push({ name: 'Wallet' })
         this.passphrase = ''
       }
+    },
+    openHardware () {
+      this.$modal.show('hardwareModal')
     },
     newWallet () {
       this.$router.push({ name: 'NewWallet' })

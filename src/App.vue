@@ -7,6 +7,7 @@
     <confirm-network-switch-modal></confirm-network-switch-modal>
     <scan-code-modal></scan-code-modal>
     <donation-modal></donation-modal>
+    <hardware-modal></hardware-modal>
   </div>
 </template>
 
@@ -16,10 +17,12 @@ import * as jark from 'jark'
 import '../node_modules/semantic-ui-css/semantic.min.css'
 import '../node_modules/izitoast/dist/css/iziToast.min.css'
 import TopHeader from './components/layouts/TopHeader'
+import BottomFooter from './components/layouts/BottomFooter'
+// Modals
 import ConfirmNetworkSwitchModal from './components/modals/ConfirmNetworkSwitchModal'
 import ScanCodeModal from './components/modals/ScanCodeModal'
 import DonationModal from './components/modals/DonationModal'
-import BottomFooter from './components/layouts/BottomFooter'
+import HardwareModal from './components/modals/HardwareModal'
 
 export default {
   name: 'app',
@@ -28,7 +31,8 @@ export default {
     ConfirmNetworkSwitchModal,
     ScanCodeModal,
     BottomFooter,
-    DonationModal
+    DonationModal,
+    HardwareModal
   },
   watch: {
     networkType (val) {
