@@ -1,7 +1,8 @@
 <template>
   <modal
     name="currencyModal"
-    height="auto">
+    height="auto"
+    :adaptive="true">
       <div class="ui container center aligned currency-modal">
         <div class="ui cards">
           <a v-for="curr in currencies" :key="curr.id" class="ui card fluid"

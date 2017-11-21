@@ -2,6 +2,7 @@
   <modal
     name="confirmSendModal"
     height="auto"
+    :adaptive="true"
     @before-open="beforeOpen"
     @closed="closed">
       <div class="ui container center aligned confirm-send-modal"

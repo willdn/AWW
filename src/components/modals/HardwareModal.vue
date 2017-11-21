@@ -2,6 +2,7 @@
   <modal
     name="hardwareModal"
     height="auto"
+    :adaptive="true"
     @before-open="beforeOpen"
     @before-close="beforeClose">
       <div class="ui container center aligned hardware-modal">
