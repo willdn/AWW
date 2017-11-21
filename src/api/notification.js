@@ -21,7 +21,7 @@ export const addNotification = (options) => {
 export const successNotification = (message) => {
   addNotification({
     color: 'green',
-    message: `<b>${message}</b>`
+    message: `${message}`
   })
 }
 
@@ -32,7 +32,7 @@ export const successNotification = (message) => {
 export const errorNotification = (message) => {
   addNotification({
     color: 'red',
-    message: `<b>${message}</b>`
+    message: `${message}`
   })
 }
 

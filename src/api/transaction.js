@@ -13,15 +13,11 @@ import arkjs from 'arkjs'
 export const validateTransaction = (data) => {
   let valid = true
   if (data.passphrase == null || data.passphrase === '') {
-    errorNotification({
-      message: `Passphrase is not valid`
-    })
+    errorNotification('Passphrase is not valid')
     valid = false
   }
   if (!arkjs.crypto.validateAddress(data.transaction.to)) {
-    errorNotification({
-      message: `Address is not valid`
-    })
+    errorNotification('Address is not valid')
     valid = false
   }
   return valid
