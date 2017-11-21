@@ -1,6 +1,6 @@
 <template>
   <div class="ui container center aligned">
-    <div v-if="wallet" class="ui segment center aligned">
+    <div v-if="wallet" class="ui segment raised center aligned">
       <div class="ui equal width stackable grid">
         <div class="ui column center aligned">
           <img class="ui centered image" :src="QRAddress" />
