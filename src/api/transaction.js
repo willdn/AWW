@@ -42,7 +42,8 @@ export const sendTransaction = (data) => {
       })
       .then((response) => {
         store.dispatch('setTransactionSending', false)
-        store.dispatch('toggleSendForm')
+        store.dispatch('toggleSendForm', false)
+        store.dispatch('toggleVoteForm', false)
         addNotification({
           message: `Transaction sent`,
           color: 'green'

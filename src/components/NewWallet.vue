@@ -4,7 +4,7 @@
         Key generated for the <b>DEV network</b>
       </div>
       <!-- QR keys -->
-      <div class="ui segment center aligned">
+      <div class="ui segment raised center aligned">
         <div class="ui segment basic">
           <!-- Generate new wallet button -->
           <div class="ui button teal compact"
@@ -42,7 +42,7 @@
           </div>
         </div>
       </div>
-      <div v-if="wallet" class="ui segment left aligned">
+      <div v-if="wallet" class="ui segment raised left aligned">
         <!-- Keys warning -->
         <div class="ui negative message">
           <div class="header">

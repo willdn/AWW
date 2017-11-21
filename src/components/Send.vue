@@ -66,6 +66,7 @@
 
 <script>
 import { validateTransaction } from '../api/transaction'
+import { errorNotification } from '../api/notification'
 import * as jark from 'jark'
 import ark from 'arkjs'
 
@@ -121,17 +122,25 @@ export default {
         transaction: this.transaction,
         passphrase: this.passphrase
       }
-      if (validateTransaction(data)) {
-        let tx = jark.createTransaction({
-          to: this.transaction.to,
-          amount: this.transaction.amount,
-          message: this.transaction.message,
-          passphrase: this.passphrase
+      jark.getBalance(this.wallet.address)
+        .then((balance) => {
+          if (data.transaction.amount > balance) {
+            errorNotification('Not enough ARK')
+            return false
+          } else {
+            if (validateTransaction(data)) {
+              let tx = jark.createTransaction({
+                to: this.transaction.to,
+                amount: this.transaction.amount,
+                message: this.transaction.message,
+                passphrase: this.passphrase
+              })
+              this.$modal.show('confirmSendModal', {
+                transaction: tx
+              })
+            }
+          }
         })
-        this.$modal.show('confirmSendModal', {
-          transaction: tx
-        })
-      }
     },
     sendMaxAmount () {
       jark.getBlockchainFee()

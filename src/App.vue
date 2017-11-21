@@ -106,4 +106,15 @@ body {
 .ui.form .success :focus::-moz-placeholder {
     color: #558e55 !important;
 }
+/* Responsive helper */
+@media only screen and (max-width: 767px) {
+  [class*="mobile hidden"],
+  [class*="tablet only"]:not(.mobile),
+  [class*="computer only"]:not(.mobile),
+  [class*="large screen only"]:not(.mobile),
+  [class*="widescreen only"]:not(.mobile),
+  [class*="or lower hidden"] {
+    display: none !important;
+  }
+}
 </style>

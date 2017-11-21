@@ -82,4 +82,8 @@ export default {
 .send-code-modal {
   padding: 1.5em;
 }
+video {
+  width: 100%;
+  height: auto;
+}
 </style>

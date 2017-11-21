@@ -4,7 +4,7 @@
         Ark Web Wallet
       </router-link>
       <div  class="right menu">
-        <div v-if="blockHeight" class="item">
+        <div v-if="blockHeight" class="item mobile hidden">
           <i class="fa fa-cube"></i>
           {{ blockHeight.toLocaleString() }}
         </div>
