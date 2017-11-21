@@ -20,7 +20,14 @@ export const validateTransaction = (data) => {
     errorNotification('Address is not valid')
     valid = false
   }
-  return valid
+  jark.getBalance(store.getters.wallet.address)
+    .then((balance) => {
+      if (data.transaction.amount > balance) {
+        errorNotification('Not enough ARK')
+        valid = false
+      }
+      return valid
+    })
 }
 
 /**
