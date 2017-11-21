@@ -4,7 +4,7 @@
     @click.prevent="selectTx(tx.id)">
     <!-- Header -->
     <div class="content">
-      <div class="ui equal width grid">
+      <div class="ui equal width grid stackable">
         <!-- Date -->
         <div class="ui column left aligned">
           <i class="fa fa-calendar"></i>
@@ -36,7 +36,7 @@
       <div v-if="tx.vendorField" class="ui segment basic center aligned tx-message">
         {{ tx.vendorField }}
       </div>
-      <div class="ui equal width grid">
+      <div class="ui equal width grid stackable">
         <div class="ui column">
           <div class="ui small header">From</div>
           <div class="text" :class="{ 'is-address': tx.senderId === address }">

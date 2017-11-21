@@ -5,6 +5,10 @@
         <div class="ui column center aligned">
           <img class="ui centered image" :src="QRAddress" />
           {{ wallet.address }}<br />
+          <!-- Delegate -->
+          <span v-if="currentDelegate">
+            <b>{{ currentDelegate.username }}</b> (#{{ currentDelegate.rate }})
+          </span>
           <a
             v-clipboard="this.wallet.address"
             @success="copySuccess()">
@@ -12,41 +16,17 @@
           </a>
         </div>
         <div class="ui column middle aligned">
-          <!-- Send toggle -->
           <div class="ui equal width grid center aligned">
-            <div class="ui column">
-              <div class="ui button teal compact"
-                  :class="{ 'basic': !sendFormVisible }"
-                  @click.prevent="toggleSendForm()">
-                <i class="fa fa-send-o"></i>
-                Send
-              </div>
+            <!-- Currency select -->
+            <div class="ui button compact basic"
+                @click.prevent="currencyModal()">
+              <i class="fa fa-money"></i>
             </div>
-            <!-- Delegate -->
-            <div class="ui column">
-              <div class="ui button orange compact"
-                  :class="{ 'basic': !voteFormVisible }"
-                  @click.prevent="toggleDelegateVote()">
-                <i class="fa fa-thumbs-up"></i>
-                Vote
-              </div>
-              <!-- Delegate -->
-              <span v-if="currentDelegate">
-                <b>{{ currentDelegate.username }}</b> (#{{ currentDelegate.rate }})
-              </span>
-            </div>
-            <div class="ui column right aligned">
-              <!-- Currency select -->
-              <div class="ui button compact basic"
-                  @click.prevent="currencyModal()">
-                <i class="fa fa-money"></i>
-              </div>
-              <!-- Refresh button -->
-              <div class="ui button blue compact basic"
-                  :class="{ 'disabled': balance == null || !transactions }"
-                  @click.prevent="refresh()">
-                <i class="fa fa-refresh" :class="{ 'fa-spin': balance == null || !transactions }"></i>
-              </div>
+            <!-- Refresh button -->
+            <div class="ui button compact basic"
+                :class="{ 'disabled': balance == null || !transactions }"
+                @click.prevent="refresh()">
+              <i class="fa fa-refresh" :class="{ 'fa-spin': balance == null || !transactions }"></i>
             </div>
           </div>
           <div class="ui equal width grid center aligned">
@@ -70,7 +50,24 @@
         </div>
       </div>
     </div>
+    <!-- Action menu -->
+    <div class="ui two item menu">
+      <a class="item"
+         :class="{ 'active teal': sendFormVisible }"
+         @click.prevent="toggleSendForm()">
+        <i class="fa fa-send-o"></i>
+        Send
+      </a>
+      <a class="item"
+         @click.prevent="toggleDelegateVote()"
+         :class="{ 'active teal': voteFormVisible }">
+        <i class="fa fa-thumbs-up"></i>
+        Vote
+      </a>
+    </div>
+    <!-- Send form -->
     <send v-if="sendFormVisible"></send>
+    <!-- Delegate vote -->
     <delegate-vote v-if="voteFormVisible"></delegate-vote>
     <!-- Transaction header -->
     <div class="ui header left aligned">

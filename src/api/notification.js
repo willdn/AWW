@@ -15,13 +15,24 @@ export const addNotification = (options) => {
 }
 
 /**
+ * Create a success notification
+ * @param {string} - Notification's message
+ */
+export const successNotification = (message) => {
+  addNotification({
+    color: 'green',
+    message: `${message}`
+  })
+}
+
+/**
  * Create an error notification
  * @param {string} - Notification's message
  */
 export const errorNotification = (message) => {
   addNotification({
     color: 'red',
-    message: `<b>${message}</b>`
+    message: `${message}`
   })
 }
 

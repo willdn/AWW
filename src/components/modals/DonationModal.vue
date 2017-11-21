@@ -1,7 +1,8 @@
 <template>
   <modal
     name="donationModal"
-    height="auto">
+    height="auto"
+    :adaptive="true">
       <div class="ui container center aligned donation-modal">
         <img class="ui centered image" width="148" :src="QRDonationAddress" />
         <div class="ui small header">{{ donationAddress }}</div>

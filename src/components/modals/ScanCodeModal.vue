@@ -2,6 +2,7 @@
   <modal
     name="scanCodeModal"
     height="auto"
+    :adaptive="true"
     @opened="opened"
     @before-open="beforeOpen"
     @closed="closed">

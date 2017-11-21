@@ -13,14 +13,12 @@ ARK Web Wallet ([AWW](https://willdn.github.io/AWW)) is an online wallet for the
 - Send transaction
 - View transactions
 - QR scan
-- (WIP) Register as delegate
 
 
 ## Build Setup
 
 ``` bash
-git clone https://github.com/willdn/AWW.git
-cd AWW/
+git clone https://github.com/willdn/AWW.git && cd AWW
 
 # install dependencies
 npm install
@@ -40,3 +38,12 @@ npm run unit
 # run all tests
 npm test
 ```
+
+## TODOs
+
+- Add tests
+- Register as delegate
+
+## Donations
+
+Ark : AePNZAAtWhLsGFLXtztGLAPnKm98VVC8tJ

@@ -4,19 +4,19 @@
       <!-- Ark logo -->
       <img class="ui centered image tiny" :src="require('../assets/img/ark-logo.png')">
       <div class="ui segment center aligned">
-        <div class="ui equal width grid">
-          <div class="column">
-            <router-link :to="{ name: 'NewWallet'}" class="ui button teal">
+        <div class="ui two stackable cards">
+          <router-link :to="{ name: 'NewWallet'}" class="card teal raised">
+            <div class="content">
               <i class="fa fa-rocket"></i>
-              New Wallet
-            </router-link>
-          </div>
-          <div class="column">
-            <router-link :to="{ name: 'OpenWallet'}" class="ui button green">
+              <b>New Wallet</b>
+            </div>
+          </router-link>
+          <router-link :to="{ name: 'OpenWallet'}" class="card green raised">
+            <div class="content">
               <i class="fa fa-unlock"></i>
-              Open Wallet
-            </router-link>
-          </div>
+              <b>Open Wallet</b>
+            </div>
+          </router-link>
         </div>
       </div>
     </div>
@@ -32,6 +32,11 @@ export default {
 <style scoped>
 .ui.segment {
   width:100%;
+}
+.card {
+  margin-top: 0.35rem;
+  margin-bottom: 0.15rem;
+  color: rgba(0,0,0,.87);
 }
 .container{
   display: flex; 
