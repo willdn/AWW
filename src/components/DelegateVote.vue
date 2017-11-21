@@ -42,6 +42,11 @@
           <i class="fa fa-thumbs-up"></i>
           Vote
         </button>
+        <button class="ui button basic"
+          @click.prevent="closeVoteForm()">
+          <i class="fa fa-remove"></i>
+          Close
+        </button>
       </form>
     </div>
   </div>
@@ -111,6 +116,9 @@ export default {
       this.$modal.show('scanCodeModal', {
         action: 'SignTransaction'
       })
+    },
+    closeVoteForm () {
+      this.$store.dispatch('toggleVoteForm', false)
     }
   },
   mounted () {
