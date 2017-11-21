@@ -12,7 +12,7 @@ const currencies = {
   },
   BTC: {
     id: 'BTC',
-    label: '₿'
+    label: 'Ƀ'
   }
 }
 
