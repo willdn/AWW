@@ -1,14 +1,17 @@
 # ARK Web Wallet
 
+[![Build Status](https://travis-ci.org/willdn/AWW.svg?branch=master)](https://travis-ci.org/willdn/AWW)
+
 ARK Web Wallet ([AWW](https://willdn.github.io/AWW)) is an online wallet for the [ARK](https://ark.io) blockchain using Vue.js.
 
 ## Features
 
 - Generate new wallet
+- Vote for delegate
+- Hardware wallet support (Ledger)
 - Check ARK balances
 - Send transaction
 - View transactions
-- Vote for delegate
 - QR scan
 - (WIP) Register as delegate
 
