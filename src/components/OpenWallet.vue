@@ -6,29 +6,29 @@
       <div class="ui segment center aligned">
         <!-- Login options -->
         <div class="ui four stackable cards">
-          <a class="card" @click.prevent="passphrasePanelVisible = !passphrasePanelVisible"
+          <a class="raised card" @click.prevent="passphrasePanelVisible = !passphrasePanelVisible"
               :class="{ 'green' : passphrasePanelVisible }">
             <div class="content">
               <i class="fa fa-keyboard-o"></i>
-              Passphrase
+              <b>Passphrase</b>
             </div>
           </a>
-          <a class="card" @click.prevent="openHardware()">
+          <a class="raised card" @click.prevent="openHardware()">
             <div class="content">
               <i class="fa fa-usb"></i>
-              Ledger
+              <b>Ledger</b>
             </div>
           </a>
-          <a class="card" @click.prevent="openScannerModal()">
+          <a class="raised card" @click.prevent="openScannerModal()">
             <div class="content">
               <i class="fa fa-qrcode"></i>
-              Scan QR
+              <b>Scan QR</b>
             </div>
           </a>
-          <a class="card" @click.prevent="newWallet()">
+          <a class="raised card" @click.prevent="newWallet()">
             <div class="content">
-              <i class="fa fa-plus"></i>
-              New
+              <i class="fa fa-rocket"></i>
+              <b>New</b>
             </div>
           </a>
         </div>
