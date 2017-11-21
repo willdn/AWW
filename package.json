@@ -5,7 +5,7 @@
   "author": "willdn",
   "license": "MIT",
   "scripts": {
-    "dev": "node build/dev-server.js",
+    "dev": "webpack-dev-server --https --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "build": "node build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
@@ -94,6 +94,7 @@
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-middleware": "^1.12.0",
+    "webpack-dev-server": "^2.9.4",
     "webpack-hot-middleware": "^2.18.2",
     "webpack-merge": "^4.1.0"
   },
