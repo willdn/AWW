@@ -85,16 +85,22 @@
           </div>
         </div>
       </div>
+    <!-- -->
+    <confirm-pass-modal></confirm-pass-modal>
   </div>
 </template>
 
 <script>
 import { clipboardNotification } from '../api/notification'
+import ConfirmPassModal from './modals/ConfirmPassModal'
 import * as jark from 'jark'
 import QRCode from 'qrcode'
 
 export default {
   name: 'newWallet',
+  components: {
+    ConfirmPassModal
+  },
   data () {
     return {
       wallet: null,
@@ -126,7 +132,9 @@ export default {
       this.newWallet()
     },
     openWallet () {
-      this.$router.push({ name: 'OpenWallet' })
+      this.$modal.show('confirmPassModal', {
+        wallet: this.wallet
+      })
     },
     copySuccess () {
       clipboardNotification()
