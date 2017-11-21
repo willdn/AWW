@@ -20,14 +20,7 @@ export const validateTransaction = (data) => {
     errorNotification('Address is not valid')
     valid = false
   }
-  jark.getBalance(store.getters.wallet.address)
-    .then((balance) => {
-      if (data.transaction.amount > balance) {
-        errorNotification('Not enough ARK')
-        valid = false
-      }
-      return valid
-    })
+  return valid
 }
 
 /**
@@ -49,7 +42,8 @@ export const sendTransaction = (data) => {
       })
       .then((response) => {
         store.dispatch('setTransactionSending', false)
-        store.dispatch('toggleSendForm')
+        store.dispatch('toggleSendForm', false)
+        store.dispatch('toggleVoteForm', false)
         addNotification({
           message: `Transaction sent`,
           color: 'green'
