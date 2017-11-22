@@ -16,7 +16,8 @@ const state = {
   loading: false,
   transactionSending: false,
   fiatCurrency: currencies.EUR,
-  qrScanner: defaultScanner
+  qrScanner: defaultScanner,
+  ledgerComm: null
 }
 
 // getters
@@ -60,6 +61,9 @@ const actions = {
   },
   clearCodeScanned ({ commit, state }) {
     commit('clearCodeScanned')
+  },
+  setLedgerComm ({ commit, state }, comm) {
+    commit('setLedgerComm', comm)
   }
 }
 
@@ -112,6 +116,9 @@ const mutations = {
   },
   clearCodeScanned (state) {
     state.qrScanner = defaultScanner
+  },
+  setLedgerComm (state, comm) {
+    state.ledgerComm = comm
   }
 }
 
