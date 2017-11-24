@@ -27,7 +27,7 @@
              :class="{ 'deposit-bg' : txWay === 'deposit',
                        'withdrawal-bg' : txWay === 'withdrawal',
                        'vote-bg': txType === 'vote' }">
-          {{ (tx.amount / 100000000).toLocaleString() }} ARK
+          {{ (tx.amount / 100000000).toLocaleString() }} {{ networkType.symbol }}
         </div>
       </div>
     </div>
@@ -69,7 +69,7 @@
         </div>
         <div class="ui column center aligned">
           <i class="fa fa-money"></i>
-          {{ (tx.fee / 100000000).toLocaleString() }} ARK
+          {{ (tx.fee / 100000000).toLocaleString() }} {{ networkType.symbol }}
         </div>
         <div class="ui column right aligned">
           <i class="fa fa-cube"></i>
@@ -96,6 +96,9 @@ export default {
   computed: {
     address () {
       return this.$store.getters.wallet.address
+    },
+    networkType () {
+      return this.$store.getters.networkType
     },
     date () {
       // TODO: refactor this

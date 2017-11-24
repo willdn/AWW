@@ -23,13 +23,13 @@
           <div class="two column row">
             <div class="column six wide">Amount</div>
             <div class="column ten wide">
-              <div class="ui small header">{{ amount }} ARK</div>
+              <div class="ui small header">{{ amount }} {{ networkType.symbol }}</div>
             </div>
           </div>
           <div class="two column row">
             <div class="column six wide">Fee</div>
             <div class="column ten wide">
-              <div class="ui small header">{{ fee }} ARK</div>
+              <div class="ui small header">{{ fee }} {{ networkType.symbol }}</div>
             </div>
           </div>
         </div>
@@ -66,6 +66,9 @@ export default {
     },
     fee () {
       return this.transaction.fee / Math.pow(10, 8)
+    },
+    networkType () {
+      return this.$store.getters.networkType
     }
   },
   mounted () {

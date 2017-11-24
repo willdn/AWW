@@ -35,7 +35,7 @@
               <div class="ui medium header">
                 <span v-if="balance == null"><i class="fa fa-spinner fa-spin"></i></span>
                 <span v-if="balance || balance === 0">{{ balance.toLocaleString() }}</span>
-                <div class="ui sub header">ARK</div>
+                <div class="ui sub header">{{ networkType.symbol }}</div>
               </div>
             </div>
             <!-- FIAT Balance -->
@@ -141,6 +141,9 @@ export default {
     },
     currentDelegate () {
       return this.wallet.delegate
+    },
+    networkType () {
+      return this.$store.getters.networkType
     }
   },
   watch: {
