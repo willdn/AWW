@@ -152,7 +152,7 @@ export default {
         .then((blockchainFee) => {
           jark.getBalance(this.wallet.address)
             .then((balance) => {
-              const fee = blockchainFee / Math.pow(8, 10)
+              const fee = blockchainFee / Math.pow(10, 8)
               if (balance - fee < 0) {
                 this.transaction.amount = 0
               } else {
@@ -163,7 +163,7 @@ export default {
     },
     sendLedger () {
       const lark = new LedgerArk(this.$store.getters.app.ledgerComm)
-      const amount = 1 * Math.pow(8, 10)
+      const amount = 1 * Math.pow(10, 8)
       let tx = arkjs.transaction.createTransaction(
         'D5GcwQbPasZPmZvbPUc3bgDcvhpFT5Q36q',
         amount,
@@ -175,7 +175,11 @@ export default {
       tx.senderId = this.$store.getters.wallet.address
       tx.senderPublicKey = this.$store.getters.wallet.publicKey
       console.log('tx', tx)
+      // arkjs.crypto.setNetworkVersion(0x1e)
       const rawTx = arkjs.crypto.getBytes(tx, true, true).toString('hex')
+      // const txdecoded = arkjs.crypto.fromBytes(rawTx)
+      // console.log('tx decoded', txdecoded)
+      // console.log(rawTx)
       const slip44 = this.$store.getters.networkType.slip44
       lark.signTransaction_async(`44'/${slip44}'/0'/0/0`, rawTx)
         .then((result) => {
