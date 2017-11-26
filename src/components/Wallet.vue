@@ -167,9 +167,11 @@ export default {
         })
     },
     getTransactions () {
-      jark.getTransactionsFromAddress(this.wallet.address)
+      jark.getTransactionsFromAddress(this.wallet.address, {
+        'orderBy': 'timestamp:desc'
+      })
         .then((response) => {
-          this.transactions = response.reverse()
+          this.transactions = response
         })
     },
     refresh () {
