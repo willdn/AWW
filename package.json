@@ -19,7 +19,7 @@
     "instascan": "^1.0.0",
     "izitoast": "^1.1.5",
     "jark": "^1.1.4",
-    "ledgerco": "github:ledgerhq/ledger-node-js-api#6cde5978b9d0a4922f0d33520b16cc2184559ebc",
+    "ledgerco": "github:ledgerhq/ledger-node-js-api#77e3a1aba1f7ec7572b6752fb475aa0d3cb88efc",
     "moment": "^2.19.1",
     "q": "^1.5.1",
     "qrcode": "^0.9.0",
