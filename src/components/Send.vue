@@ -53,10 +53,13 @@
           <span v-if="!transactionSending">Send</span>
           <span v-if="transactionSending">Sending</span>
         </button>
+        <!--
         <button class="ui button teal"
           @click.prevent="sendLedger()">
-          <span>Sign Ledger</span>
+          <i class="fa fa-usb"></i>
+          Ledger sign
         </button>
+        -->
         <button class="ui button basic"
           v-if="!transactionSending"
           @click.prevent="closeSendForm()">
