@@ -15,6 +15,7 @@
 <script>
 import ledger from 'ledgerco'
 import LedgerArk from '../../ledger/LedgerArk'
+import arkjs from 'arkjs'
 
 export default {
   name: 'hardwareModal',
@@ -39,11 +40,14 @@ export default {
     beforeOpen (event) {
       this.timer = setInterval(() => {
         ledger.comm_u2f.create_async().then((comm) => {
+          this.$store.dispatch('setLedgerComm', comm)
           const ark = new LedgerArk(comm)
-          ark.getAddress_async(`44'/111'/0'/0/0`)
+          const slip44 = this.$store.getters.networkType.slip44
+          ark.getAddress_async(`44'/${slip44}'/0'/0/0`)
             .then((keys) => {
               if (keys.hasOwnProperty('publicKey') &&
                   keys.hasOwnProperty('address')) {
+                keys.address = arkjs.crypto.getAddress(keys.publicKey)
                 this.hardwareOpen(keys)
               }
             })

@@ -53,6 +53,13 @@
           <span v-if="!transactionSending">Send</span>
           <span v-if="transactionSending">Sending</span>
         </button>
+        <!--
+        <button class="ui button teal"
+          @click.prevent="sendLedger()">
+          <i class="fa fa-usb"></i>
+          Ledger sign
+        </button>
+        -->
         <button class="ui button basic"
           v-if="!transactionSending"
           @click.prevent="closeSendForm()">
@@ -68,7 +75,8 @@
 import { validateTransaction } from '../api/transaction'
 import { errorNotification } from '../api/notification'
 import * as jark from 'jark'
-import ark from 'arkjs'
+import arkjs from 'arkjs'
+import LedgerArk from '../ledger/LedgerArk'
 
 const defaultTransaction = {
   to: null,
@@ -101,7 +109,7 @@ export default {
       return this.$store.getters.wallet
     },
     addressValid () {
-      return ark.crypto.validateAddress(this.transaction.to)
+      return arkjs.crypto.validateAddress(this.transaction.to)
     },
     transactionSending () {
       return this.$store.getters.app.transactionSending
@@ -147,13 +155,41 @@ export default {
         .then((blockchainFee) => {
           jark.getBalance(this.wallet.address)
             .then((balance) => {
-              const fee = blockchainFee / Math.pow(8, 10)
+              const fee = blockchainFee / Math.pow(10, 8)
               if (balance - fee < 0) {
                 this.transaction.amount = 0
               } else {
                 this.transaction.amount = balance - fee
               }
             })
+        })
+    },
+    sendLedger () {
+      const lark = new LedgerArk(this.$store.getters.app.ledgerComm)
+      const amount = 1 * Math.pow(10, 8)
+      let tx = arkjs.transaction.createTransaction(
+        'D5GcwQbPasZPmZvbPUc3bgDcvhpFT5Q36q',
+        amount,
+        null,
+        '',
+        null
+      )
+      delete tx.signature
+      tx.senderId = this.$store.getters.wallet.address
+      tx.senderPublicKey = this.$store.getters.wallet.publicKey
+      console.log('tx', tx)
+      // arkjs.crypto.setNetworkVersion(0x1e)
+      const rawTx = arkjs.crypto.getBytes(tx, true, true).toString('hex')
+      // const txdecoded = arkjs.crypto.fromBytes(rawTx)
+      // console.log('tx decoded', txdecoded)
+      // console.log(rawTx)
+      const slip44 = this.$store.getters.networkType.slip44
+      lark.signTransaction_async(`44'/${slip44}'/0'/0/0`, rawTx)
+        .then((result) => {
+          console.log(result)
+        })
+        .fail((error) => {
+          console.log('Ledger error : ', error)
         })
     },
     validateForm () {
