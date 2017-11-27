@@ -14,11 +14,10 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
-    "arkjs": "^0.2.1",
     "axios": "^0.17.0",
     "instascan": "^1.0.0",
     "izitoast": "^1.1.5",
-    "jark": "^1.1.4",
+    "jark": "^1.1.7",
     "ledgerco": "github:ledgerhq/ledger-node-js-api#77e3a1aba1f7ec7572b6752fb475aa0d3cb88efc",
     "moment": "^2.19.1",
     "q": "^1.5.1",

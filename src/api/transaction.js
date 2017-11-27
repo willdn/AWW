@@ -3,7 +3,6 @@ import { getEndpoint } from '../api'
 import * as jark from 'jark'
 import axios from 'axios'
 import store from '../store'
-import arkjs from 'arkjs'
 
 /**
  * Validate a transaction
@@ -16,7 +15,7 @@ export const validateTransaction = (data) => {
     errorNotification('Passphrase is not valid')
     valid = false
   }
-  if (!arkjs.crypto.validateAddress(data.transaction.to)) {
+  if (!jark.arkjs.crypto.validateAddress(data.transaction.to)) {
     errorNotification('Address is not valid')
     valid = false
   }
