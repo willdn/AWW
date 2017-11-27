@@ -75,7 +75,6 @@
 import { validateTransaction } from '../api/transaction'
 import { errorNotification } from '../api/notification'
 import * as jark from 'jark'
-import arkjs from 'arkjs'
 import LedgerArk from '../ledger/LedgerArk'
 
 const defaultTransaction = {
@@ -109,7 +108,7 @@ export default {
       return this.$store.getters.wallet
     },
     addressValid () {
-      return arkjs.crypto.validateAddress(this.transaction.to)
+      return jark.arkjs.crypto.validateAddress(this.transaction.to)
     },
     transactionSending () {
       return this.$store.getters.app.transactionSending
@@ -130,6 +129,7 @@ export default {
         transaction: this.transaction,
         passphrase: this.passphrase
       }
+      // TODO: get balance from store ?
       jark.getBalance(this.wallet.address)
         .then((balance) => {
           if (data.transaction.amount > balance) {
@@ -167,7 +167,7 @@ export default {
     sendLedger () {
       const lark = new LedgerArk(this.$store.getters.app.ledgerComm)
       const amount = 1 * Math.pow(10, 8)
-      let tx = arkjs.transaction.createTransaction(
+      let tx = jark.arkjs.transaction.createTransaction(
         'D5GcwQbPasZPmZvbPUc3bgDcvhpFT5Q36q',
         amount,
         null,
@@ -179,7 +179,7 @@ export default {
       tx.senderPublicKey = this.$store.getters.wallet.publicKey
       console.log('tx', tx)
       // arkjs.crypto.setNetworkVersion(0x1e)
-      const rawTx = arkjs.crypto.getBytes(tx, true, true).toString('hex')
+      const rawTx = jark.arkjs.crypto.getBytes(tx, true, true).toString('hex')
       // const txdecoded = arkjs.crypto.fromBytes(rawTx)
       // console.log('tx decoded', txdecoded)
       // console.log(rawTx)

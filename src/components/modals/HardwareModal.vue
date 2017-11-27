@@ -15,7 +15,7 @@
 <script>
 import ledger from 'ledgerco'
 import LedgerArk from '../../ledger/LedgerArk'
-import arkjs from 'arkjs'
+import * as jark from 'jark'
 
 export default {
   name: 'hardwareModal',
@@ -47,7 +47,7 @@ export default {
             .then((keys) => {
               if (keys.hasOwnProperty('publicKey') &&
                   keys.hasOwnProperty('address')) {
-                keys.address = arkjs.crypto.getAddress(keys.publicKey)
+                keys.address = jark.arkjs.crypto.getAddress(keys.publicKey)
                 this.hardwareOpen(keys)
               }
             })

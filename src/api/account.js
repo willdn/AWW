@@ -1,4 +1,4 @@
-import arkjs from 'arkjs'
+import * as jark from 'jark'
 import store from '../store'
 
 /**
@@ -7,7 +7,7 @@ import store from '../store'
  * @return {string} Account address
  */
 export const getAddressFromPass = (passphrase) => {
-  arkjs.crypto.setNetworkVersion(store.getters.networkType.version)
-  const keys = arkjs.crypto.getKeys(passphrase)
-  return arkjs.crypto.getAddress(keys.publicKey)
+  jark.arkjs.crypto.setNetworkVersion(store.getters.networkType.version)
+  const keys = jark.arkjs.crypto.getKeys(passphrase)
+  return jark.arkjs.crypto.getAddress(keys.publicKey)
 }

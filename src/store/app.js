@@ -32,11 +32,9 @@ const getters = {
 const actions = {
   setNetwork ({ commit, state }, network) {
     commit('setNetwork', network)
-    commit('closeWallet')
   },
-  switchNetwork ({ commit, state }) {
-    commit('switchNetwork')
-    commit('closeWallet')
+  switchNetwork ({ commit, state }, data = null) {
+    commit('switchNetwork', data)
   },
   toggleVoteForm ({ commit, state }, setState = null) {
     commit('toggleVoteForm', setState)
@@ -73,14 +71,25 @@ const mutations = {
     state.network = network
     jark.setNetwork(network.label)
   },
-  switchNetwork (state) {
-    if (state.network === networkType.MAIN) {
-      state.network = networkType.TEST
-    } else if (state.network === networkType.TEST) {
-      state.network = networkType.MAIN
+  switchNetwork (state, data) {
+    // TODO: refactor this !
+    if (data) {
+      if (data.network === 'Main') {
+        state.network = networkType.MAIN
+      } else if (data.network === 'Dev') {
+        state.network = networkType.TEST
+      }
+      jark.setNetwork(state.network.label, data.url)
+      successNotification(`Network switched to <b>${data.url}</b>`)
+    } else {
+      if (state.network === networkType.MAIN) {
+        state.network = networkType.TEST
+      } else if (state.network === networkType.TEST) {
+        state.network = networkType.MAIN
+      }
+      jark.setNetwork(state.network.label)
+      successNotification(`Network switched to <b>${state.network.label}</b>`)
     }
-    jark.setNetwork(state.network.label)
-    successNotification(`Network switched to <b>${state.network.label}</b>`)
   },
   toggleVoteForm (state, setState) {
     if (setState != null) {
