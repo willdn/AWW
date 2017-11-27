@@ -108,6 +108,11 @@ export default {
       QRPassphrase: null
     }
   },
+  watch: {
+    networkType () {
+      this.newWallet()
+    }
+  },
   computed: {
     networkType () {
       return this.$store.getters.networkType
