@@ -53,22 +53,22 @@
     <!-- Action menu -->
     <div class="ui two item menu">
       <a class="item"
-         :class="{ 'active teal': sendFormVisible }"
+         :class="{ 'active teal': app.sendFormVisible }"
          @click.prevent="toggleSendForm()">
         <i class="fa fa-send-o"></i>
         Send
       </a>
       <a class="item"
          @click.prevent="toggleDelegateVote()"
-         :class="{ 'active teal': voteFormVisible }">
+         :class="{ 'active teal': app.voteFormVisible }">
         <i class="fa fa-thumbs-up"></i>
         Vote
       </a>
     </div>
     <!-- Send form -->
-    <send v-if="sendFormVisible"></send>
+    <send v-if="app.sendFormVisible"></send>
     <!-- Delegate vote -->
-    <delegate-vote v-if="voteFormVisible"></delegate-vote>
+    <delegate-vote v-if="app.voteFormVisible"></delegate-vote>
     <!-- Transaction header -->
     <div class="ui header left aligned">
       <i class="fa fa-exchange"></i>
@@ -94,15 +94,16 @@
 </template>
 
 <script>
+import { clipboardNotification } from '../api/notification'
+import * as api from '../api'
+import QRCode from 'qrcode'
+import * as jark from 'jark'
+// Components
 import CurrencyModal from './modals/CurrencyModal'
 import ConfirmSendModal from './modals/ConfirmSendModal'
-import { clipboardNotification } from '../api/notification'
 import Transaction from './Transaction'
 import Send from './Send'
 import DelegateVote from './DelegateVote'
-import QRCode from 'qrcode'
-import axios from 'axios'
-import * as jark from 'jark'
 
 export default {
   name: 'wallet',
@@ -127,16 +128,14 @@ export default {
     wallet () {
       return this.$store.getters.wallet
     },
-    sendFormVisible () {
-      return this.$store.getters.app.sendFormVisible
-    },
-    voteFormVisible () {
-      return this.$store.getters.app.voteFormVisible
+    app () {
+      return this.$store.getters.app
     },
     fiatCurrency () {
       return this.$store.getters.app.fiatCurrency
     },
     balanceFiat () {
+      if (api.isDevNetwork()) return 0
       return this.arkFiatValue * this.balance
     },
     currentDelegate () {
@@ -187,12 +186,9 @@ export default {
       this.$modal.show('currencyModal')
     },
     getARKMarket () {
-      axios.get(`https://min-api.cryptocompare.com/data/price?fsym=ARK&tsyms=${this.fiatCurrency.id}`)
+      api.getARKMarket(this.fiatCurrency.id)
         .then((res) => {
           this.arkFiatValue = res.data[this.fiatCurrency.id]
-        })
-        .catch((err) => {
-          if (err) console.log(err)
         })
     }
   },

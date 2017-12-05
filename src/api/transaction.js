@@ -1,5 +1,4 @@
 import { errorNotification, addNotification } from './notification'
-import { getEndpoint } from '../api'
 import * as jark from 'jark'
 import axios from 'axios'
 import store from '../store'
@@ -31,7 +30,7 @@ export const sendTransaction = (data) => {
   return jark.getNetHash()
     .then((nethash) => {
       const dataReq = JSON.stringify({ transactions: [data] })
-      return axios.post(`${getEndpoint()}/peer/transactions`, dataReq, {
+      return axios.post(`${jark.getEndpoint()}/peer/transactions`, dataReq, {
         headers: {
           'Content-Type': 'application/json',
           'version': '0.3.0',

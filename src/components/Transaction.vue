@@ -82,8 +82,8 @@
 
 <script>
 import { clipboardNotification } from '../api/notification'
-import moment from 'moment'
 import * as utils from '../api/utils'
+import * as api from '../api'
 
 export default {
   name: 'transaction',
@@ -101,10 +101,7 @@ export default {
       return this.$store.getters.networkType
     },
     date () {
-      // TODO: refactor this
-      const date = new Date(Date.UTC(2017, 2, 21, 13, 0, 0, 0))
-      const t = Math.floor(date.getTime() / 1000) * 1000
-      return moment(t + this.tx.timestamp * 1000).fromNow()
+      return api.dateFromNow(this.tx.timestamp)
     },
     txWay () {
       if (this.tx.senderId === this.address) return 'withdrawal'
