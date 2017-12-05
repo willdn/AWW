@@ -1,4 +1,5 @@
 import axios from 'axios'
+import store from '../store'
 
 /**
  * @property {string} donationAddress - Donation address
@@ -18,4 +19,20 @@ export const getARKMarket = (fiatCurrencyId) => {
   .catch((err) => {
     if (err) console.log(err)
   })
+}
+
+/**
+ * Check if current network is DEV
+ * @return {boolean} Is DEV network
+ */
+export const isDevNetwork = () => {
+  return (store.getters.networkType.label === 'Dev')
+}
+
+/**
+ * Check if current network is MAIN
+ * @return {boolean} Is MAIN network
+ */
+export const isMainNetwork = () => {
+  return (store.getters.networkType.label === 'Main')
 }

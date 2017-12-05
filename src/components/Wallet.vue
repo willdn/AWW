@@ -135,6 +135,7 @@ export default {
       return this.$store.getters.app.fiatCurrency
     },
     balanceFiat () {
+      if (api.isDevNetwork()) return 0
       return this.arkFiatValue * this.balance
     },
     currentDelegate () {
